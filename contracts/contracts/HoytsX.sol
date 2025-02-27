@@ -6,6 +6,7 @@ import { ERC721 } from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 contract HoytsX is ERC721 {
     address public owner;
     uint16 public totalMovies;
+    uint256 public totalSupply;
 
     struct Movie {
         uint16 id;
@@ -24,6 +25,9 @@ contract HoytsX is ERC721 {
     }
 
     mapping(uint16 => Movie) movies;
+    mapping(uint16 => mapping(address => bool)) public hasBought;
+    mapping(uint16 => mapping(uint8 => address)) public seatTaken;
+    mapping(uint16 => uint8[]) seatsTaken;
 
     modifier onlyOwner() {
         require(msg.sender == owner);
@@ -65,7 +69,36 @@ contract HoytsX is ERC721 {
         );
     }
 
+    function mintMovieTicket(uint16 _id, uint8 _seat) public payable {
+        
+        require(_id != 0);
+        require(_id <= totalMovies);
+
+        require(msg.value >= movies[_id].cost);
+        require(seatTaken[_id][_seat] == address(0));
+        require(_seat <= movies[_id].maxTickets);
+
+
+        movies[_id].tickets -= 1;
+        seatTaken[_id][_seat] = msg.sender;
+        hasBought[_id][msg.sender] = true;
+        seatsTaken[_id].push(_seat);
+
+        totalSupply += 1;
+
+        _safeMint(msg.sender, totalSupply);
+    }
+
     function getMovie(uint16 _id) public view returns (Movie memory) {
         return movies[_id];
+    }
+
+    function getSeatsTaken(uint16 _id) public view returns (uint8[] memory) {
+        return seatsTaken[_id];
+    }
+
+    function withdraw() public onlyOwner {
+        (bool success, ) = owner.call{value: address(this).balance}("");
+        require(success);
     }
 }
