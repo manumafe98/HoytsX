@@ -1,5 +1,9 @@
+import { NavBar } from "./components/NavBar";
+
 export const HoytsX = () => {
   return (
-    <div className="">HoytsX</div>
+    <header>
+      <NavBar />
+    </header>
   )
 }
