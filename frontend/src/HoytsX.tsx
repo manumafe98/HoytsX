@@ -1,7 +1,9 @@
-import { mainnet } from "@reown/appkit/networks";
-import { NavBar } from "./components/NavBar";
 import { EthersAdapter } from "@reown/appkit-adapter-ethers";
+import { mainnet } from "@reown/appkit/networks";
 import { createAppKit } from "@reown/appkit/react";
+import { Footer } from "./components/Footer";
+import { Movies } from "./components/Movies";
+import { NavBar } from "./components/NavBar";
 
 const metadata = {
   name: "HoytsX",
@@ -19,17 +21,21 @@ createAppKit({
     analytics: true,
     socials: false,
     email: false
-  },
-  themeVariables: {
-    "--w3m-color-mix": "#9b2b66",
-    "--w3m-color-mix-strength": 40
   }
 });
 
 export const HoytsX = () => {
   return (
-    <header>
-      <NavBar />
-    </header>
+    <div className="h-screen flex flex-col">
+      <header>
+        <NavBar />
+      </header>
+      <section>
+        <Movies />
+      </section>
+      <footer>
+        <Footer />
+      </footer>
+    </div>
   )
 }
