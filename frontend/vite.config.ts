@@ -8,4 +8,10 @@ export default defineConfig({
     tailwindcss(),
     react()
   ],
+  define: {
+    "process.env": {},
+    "process.browser": true,
+    "process.version": JSON.stringify(process.version),
+    "import.meta.env.PROJECT_ID": JSON.stringify(process.env.PROJECT_ID)
+  }
 })
