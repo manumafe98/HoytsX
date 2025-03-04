@@ -1,20 +1,12 @@
 import { useEffect, useState } from "react";
 import { Movie } from "../types/movie.type";
-import { getContract } from "../hooks/getContract";
+import { getMovies } from "../hooks/getMovies";
 
 export const Movies = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
 
   const loadBlockchainData = async () => {
-    const contract = await getContract();
-    const totalMovies = Number(await contract.totalMovies()) + 1;
-    const currentMovies: Movie[] = [];
-
-    for (let index = 1; index < totalMovies; index++) {
-      const movie = await contract.getMovie(index);
-      currentMovies.push(movie);
-    }
-
+    const currentMovies = await getMovies();
     setMovies(currentMovies);
   }
 
