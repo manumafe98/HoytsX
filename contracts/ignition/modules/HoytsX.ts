@@ -68,6 +68,19 @@ const movieData = [
         cost: tokens(5),
         duration: 117,
         maxTickets: 100 
+    },
+    {
+        name: "Treasure Planet",
+        description: "Jim Hawkins is a teenager who finds the map of a great treasure hidden by a space pirate. Together with some friends, he sets off in a large spaceship, shaped like a caravel, on his quest.",
+        ipfsHash: "Qmdoh5Nb4963GbU9ipqHj4ked5yx6vhyEEN3drtj5Z1NQ8",
+        genre: "Adventure",
+        director: "Ron Clements",
+        actors: ["Joseph Gordon-Levitt", "Emma Thompson", "Martin Short"],
+        date: "May 15",
+        time: "04:00PM",
+        cost: tokens(6),
+        duration: 96,
+        maxTickets: 100 
     }
 ];
 
