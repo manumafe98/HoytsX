@@ -1,9 +1,32 @@
 import { EthersAdapter } from "@reown/appkit-adapter-ethers";
-import { mainnet } from "@reown/appkit/networks";
+import { defineChain, mainnet } from "@reown/appkit/networks";
 import { createAppKit } from "@reown/appkit/react";
 import { Footer } from "./components/Footer";
 import { Movies } from "./components/Movies";
 import { NavBar } from "./components/NavBar";
+
+const hardhatNetwork = defineChain({
+  id: 31337,
+  caipNetworkId: "eip155:31337",
+  chainNamespace: "eip155",
+  name: "Hardhat",
+  nativeCurrency: {
+    decimals: 18,
+    name: "Ether",
+    symbol: "ETH",
+  },
+  rpcUrls: {
+    default: {
+      http: ["http://127.0.0.1:8545"],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: "Localhost Explorer",
+      url: "http://127.0.0.1:8545",
+    },
+  },
+});
 
 const metadata = {
   name: "HoytsX",
@@ -14,7 +37,7 @@ const metadata = {
 
 createAppKit({
   adapters: [new EthersAdapter()],
-  networks: [mainnet],
+  networks: [mainnet, hardhatNetwork],
   metadata,
   projectId: import.meta.env.PROJECT_ID,
   features: {
