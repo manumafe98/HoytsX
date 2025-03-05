@@ -32,7 +32,7 @@ const metadata = {
   name: "HoytsX",
   description: "Your cinema in the blockchain",
   url: "https://hoytsx.com",
-  icons: ["https://avatars.hoytsx.com/"]
+  icons: ["https://avatars.hoytsx.com/"],
 };
 
 createAppKit({
@@ -43,8 +43,8 @@ createAppKit({
   features: {
     analytics: true,
     socials: false,
-    email: false
-  }
+    email: false,
+  },
 });
 
 export const HoytsX = () => {
@@ -60,5 +60,5 @@ export const HoytsX = () => {
         <Footer />
       </footer>
     </div>
-  )
-}
+  );
+};
