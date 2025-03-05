@@ -1,5 +1,4 @@
-import { useAppKit } from "@reown/appkit/react";
-import { useAppKitAccount } from "@reown/appkit/react";
+import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
 
 export const NavBar = () => {
   const { open } = useAppKit();
