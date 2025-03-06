@@ -1,9 +1,9 @@
 import { EthersAdapter } from "@reown/appkit-adapter-ethers";
 import { defineChain } from "@reown/appkit/networks";
 import { createAppKit } from "@reown/appkit/react";
-import { Footer } from "./components/Footer";
-import { Movies } from "./components/Movies";
-import { NavBar } from "./components/NavBar";
+import { Route, Routes } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { Movie } from "./pages/Movie";
 
 const hardhatNetwork = defineChain({
   id: 31337,
@@ -49,16 +49,9 @@ createAppKit({
 
 export const HoytsX = () => {
   return (
-    <div className="h-screen flex flex-col">
-      <header>
-        <NavBar />
-      </header>
-      <section>
-        <Movies />
-      </section>
-      <footer>
-        <Footer />
-      </footer>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/movie/:id" element={<Movie />} />
+    </Routes>
   );
 };
