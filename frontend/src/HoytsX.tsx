@@ -1,5 +1,5 @@
 import { EthersAdapter } from "@reown/appkit-adapter-ethers";
-import { defineChain, mainnet } from "@reown/appkit/networks";
+import { defineChain } from "@reown/appkit/networks";
 import { createAppKit } from "@reown/appkit/react";
 import { Footer } from "./components/Footer";
 import { Movies } from "./components/Movies";
@@ -37,7 +37,7 @@ const metadata = {
 
 createAppKit({
   adapters: [new EthersAdapter()],
-  networks: [mainnet, hardhatNetwork],
+  networks: [hardhatNetwork],
   metadata,
   projectId: import.meta.env.PROJECT_ID,
   features: {
