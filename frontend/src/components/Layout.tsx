@@ -12,7 +12,7 @@ export const Layout = ({ children }: LayoutProps) => {
       <header>
         <NavBar />
       </header>
-      <section>{children}</section>
+      <section className="flex-1">{children}</section>
       <footer>
         <Footer />
       </footer>
