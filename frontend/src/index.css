@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
 .text-outline {
-    -webkit-text-stroke: 1px black;
-    color: transparent;
+  -webkit-text-stroke: 1.5px black;
+  color: #9b2b66;
 }

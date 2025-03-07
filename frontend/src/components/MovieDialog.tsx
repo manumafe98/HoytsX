@@ -63,7 +63,7 @@ export const MovieDialog = forwardRef<HTMLDialogElement, MovieDialogProps>(
             <p className="text-md text-white">{props.movie?.description}</p>
           </div>
           <button
-            className="bg-white w-5/6 rounded-md h-10 mt-5 hover:opacity-55 transform duration-200 cursor-pointer"
+            className="bg-white w-5/6 rounded-md h-10 mt-5 hover:opacity-55 transform duration-200 cursor-pointer focus:outline-none"
             onClick={navigateToMovieTab}
           >
             <div className="flex justify-center items-center gap-2">

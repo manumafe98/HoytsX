@@ -9,7 +9,6 @@ export const getProvider = () => {
     provider = new BrowserProvider(
       window.ethereum as unknown as Eip1193Provider,
     );
-    
   }
 
   return provider;
