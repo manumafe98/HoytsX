@@ -6,18 +6,18 @@ import { SeatWalkAway } from "./SeatWalkAway";
 
 type SeatChartSectionProps = {
   movie: Movie | undefined;
-}
+};
 
-export const SeatChartSection = ({movie}: SeatChartSectionProps) => {
+export const SeatChartSection = ({ movie }: SeatChartSectionProps) => {
   const [seatsTaken, setSeatsTaken] = useState<number[]>([]);
 
   useEffect(() => {
     const fetchSeatsTaken = async () => {
       const seats = await getMovieSeatsTaken(movie?.id as number);
-      setSeatsTaken(seats)
-    }
+      setSeatsTaken(seats);
+    };
     fetchSeatsTaken();
-  }, [])
+  }, []);
 
   return (
     <div className="flex flex-col col-span-2 h-auto border-1 border-solid border-gray-200 shadow-xl rounded-md p-5">

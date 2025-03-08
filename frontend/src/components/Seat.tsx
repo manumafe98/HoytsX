@@ -17,7 +17,7 @@ export const Seat = ({
   maxRows,
   totalSeats,
   chartType,
-  seatsTaken
+  seatsTaken,
 }: SeatProps) => {
   let margin = "";
 
@@ -29,9 +29,7 @@ export const Seat = ({
     margin = "ml-2 mt-2";
   }
 
-  const purchaseSeat = () => {
-
-  }
+  const purchaseSeat = () => {};
 
   return (
     <div
@@ -41,7 +39,7 @@ export const Seat = ({
         .fill(1)
         .map((_, index) => (
           <div
-            className={`flex justify-center items-center rounded-2xl p-1 w-8 h-8 text-white col-start-${(index % maxColumns) + 1 + columnStart} row-start-${Math.ceil((index + 1) / maxRows) + rowStart} border-1 border-solid border-black ${seatsTaken.find(seat => Number(seat) == index + step) ? `bg-gray-600` : `bg-[#10069f] cursor-pointer hover:opacity-60`}`}
+            className={`flex justify-center items-center rounded-2xl p-1 w-8 h-8 text-white col-start-${(index % maxColumns) + 1 + columnStart} row-start-${Math.ceil((index + 1) / maxRows) + rowStart} border-1 border-solid border-black ${seatsTaken.find((seat) => Number(seat) == index + step) ? `bg-gray-600` : `bg-[#10069f] cursor-pointer hover:opacity-60`}`}
             onClick={purchaseSeat}
           >
             {index + step}
