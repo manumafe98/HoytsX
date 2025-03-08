@@ -6,9 +6,13 @@ import { SeatWalkAway } from "./SeatWalkAway";
 
 type SeatChartSectionProps = {
   movie: Movie | undefined;
+  openPurchaseDialog: (id: number) => void;
 };
 
-export const SeatChartSection = ({ movie }: SeatChartSectionProps) => {
+export const SeatChartSection = ({
+  movie,
+  openPurchaseDialog,
+}: SeatChartSectionProps) => {
   const [seatsTaken, setSeatsTaken] = useState<number[]>([]);
 
   useEffect(() => {
@@ -35,6 +39,7 @@ export const SeatChartSection = ({ movie }: SeatChartSectionProps) => {
             maxRows={5}
             chartType="left"
             seatsTaken={seatsTaken}
+            openPurchaseDialog={openPurchaseDialog}
           />
           <SeatWalkAway />
         </div>
@@ -48,6 +53,7 @@ export const SeatChartSection = ({ movie }: SeatChartSectionProps) => {
             maxRows={5}
             chartType="center"
             seatsTaken={seatsTaken}
+            openPurchaseDialog={openPurchaseDialog}
           />
         </div>
         <div className="flex row-span-4">
@@ -61,6 +67,7 @@ export const SeatChartSection = ({ movie }: SeatChartSectionProps) => {
             maxRows={5}
             chartType="right"
             seatsTaken={seatsTaken}
+            openPurchaseDialog={openPurchaseDialog}
           />
         </div>
       </div>
