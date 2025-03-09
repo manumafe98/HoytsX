@@ -12,13 +12,9 @@ type PurchaseSeatDialogProps = {
 export const PurchaseSeatDialog = forwardRef<
   HTMLDialogElement,
   PurchaseSeatDialogProps
->(({movie, seatId}, ref) => {
+>(({ movie, seatId }, ref) => {
   const purchaseTiket = async () => {
-    await mintSeat(
-      movie?.id as number,
-      seatId,
-      movie?.cost as number,
-    );
+    await mintSeat(movie?.id as number, seatId, movie?.cost as number);
     if (ref && typeof ref !== "function") {
       ref.current?.close();
     }
@@ -28,8 +24,8 @@ export const PurchaseSeatDialog = forwardRef<
     <DialogLayout ref={ref} minHeight="min-h-[25vh]">
       <div className="flex flex-col items-center p-5">
         <p className="text-xl text-white w-5/6">
-          Confirm purchase of {movie?.name} seat {seatId} on date{" "}
-          {movie?.date} at {movie?.time}
+          Confirm purchase of {movie?.name} seat {seatId} on date {movie?.date}{" "}
+          at {movie?.time}
         </p>
         <Button onClick={purchaseTiket}>
           <div>Confirm</div>

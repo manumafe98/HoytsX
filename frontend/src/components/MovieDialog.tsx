@@ -10,7 +10,7 @@ type MovieDialogProps = {
 };
 
 export const MovieDialog = forwardRef<HTMLDialogElement, MovieDialogProps>(
-  ({movie}, ref) => {
+  ({ movie }, ref) => {
     const navigate = useNavigate();
 
     const calculateDuration = (
