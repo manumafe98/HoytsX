@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export const NavBar = () => {
   const navigate = useNavigate();
-  const { provider, open } = useAppKit();
+  const { open } = useAppKit();
   const { address, isConnected } = useAppKitAccount();
 
   const navigateToHome = () => {
