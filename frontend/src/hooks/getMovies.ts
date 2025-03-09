@@ -1,8 +1,10 @@
 import { Movie } from "../types/movie.type";
 import { getContract } from "./getContract";
+import { getProvider } from "./getProvider";
 
 export const getMovies = async () => {
-  const contract = await getContract();
+  const provider = getProvider();
+  const contract = await getContract(provider);
   const totalMovies = Number(await contract.totalMovies()) + 1;
   const movies: Movie[] = [];
 

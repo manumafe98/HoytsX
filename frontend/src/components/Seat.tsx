@@ -39,8 +39,13 @@ export const Seat = ({
         .fill(1)
         .map((_, index) => (
           <div
-            className={`flex justify-center items-center rounded-2xl p-1 w-8 h-8 text-white col-start-${(index % maxColumns) + 1 + columnStart} row-start-${Math.ceil((index + 1) / maxRows) + rowStart} border-1 border-solid border-black ${seatsTaken.find((seat) => Number(seat) == index + step) ? `bg-gray-600` : `bg-[#10069f] cursor-pointer hover:opacity-60`}`}
-            onClick={() => openPurchaseDialog(index + step)}
+            key={index + step}
+            className={`flex justify-center items-center rounded-2xl p-1 w-8 h-8 text-white col-start-${(index % maxColumns) + 1 + columnStart} row-start-${Math.ceil((index + 1) / maxRows) + rowStart} border-1 border-solid border-black ${seatsTaken.find((seat) => Number(seat) == index + step) ? `bg-gray-600` : `bg-[#10069f] cursor-pointer hover:opacity-60`} select-none`}
+            onClick={
+              seatsTaken.find((seat) => Number(seat) == index + step)
+                ? undefined
+                : () => openPurchaseDialog(index + step)
+            }
           >
             {index + step}
           </div>

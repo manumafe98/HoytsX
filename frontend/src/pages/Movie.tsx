@@ -39,10 +39,7 @@ export const Movie = () => {
       <div className="grid grid-cols-3 grid-rows-2 px-90 py-10 gap-x-4">
         <MovieTitleSection movie={movie} />
         <MovieDescriptionSection movie={movie} />
-        <SeatChartSection
-          movie={movie}
-          openPurchaseDialog={openPurchaseDialog}
-        />
+        <SeatChartSection openPurchaseDialog={openPurchaseDialog} />
       </div>
     </Layout>
   );

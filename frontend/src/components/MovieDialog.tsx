@@ -2,6 +2,7 @@ import { forwardRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Ticket } from "../icons/Ticket";
 import { Movie } from "../types/movie.type";
+import { Button } from "./Button";
 import { DialogLayout } from "./DialogLayout";
 
 type MovieDialogProps = {
@@ -25,7 +26,7 @@ export const MovieDialog = forwardRef<HTMLDialogElement, MovieDialogProps>(
     };
 
     return (
-      <DialogLayout ref={ref}>
+      <DialogLayout ref={ref} minHeight="min-h-55vh">
         <div className="flex justify-center w-5/6 h-72 rounded-lg overflow-hidden">
           <img
             className="w-full h-full object-cover"
@@ -46,15 +47,12 @@ export const MovieDialog = forwardRef<HTMLDialogElement, MovieDialogProps>(
         <div className="w-5/6 mt-5 max-w-lg">
           <p className="text-md text-white">{props.movie?.description}</p>
         </div>
-        <button
-          className="bg-white w-5/6 rounded-md h-10 mt-5 hover:opacity-55 transform duration-200 cursor-pointer focus:outline-none"
-          onClick={navigateToMovieTab}
-        >
+        <Button onClick={navigateToMovieTab}>
           <div className="flex justify-center items-center gap-2">
             <Ticket className="fill-current text-black w-6 h-6" />
             <span className="text-xl font-semibold">Get your Ticket</span>
           </div>
-        </button>
+        </Button>
       </DialogLayout>
     );
   },
