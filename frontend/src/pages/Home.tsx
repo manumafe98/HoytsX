@@ -1,10 +1,10 @@
 import { Layout } from "../components/Layout";
-import { Movies } from "../components/Movies";
+import { HomeMovieSection } from "../components/HomeMovieSection";
 
 export const Home = () => {
   return (
     <Layout>
-      <Movies />
+      <HomeMovieSection />
     </Layout>
   );
 };
