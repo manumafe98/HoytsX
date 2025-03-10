@@ -1,4 +1,4 @@
-import { Movie } from "../types/movie.type";
+import { Movie } from "@/types/movie.type";
 
 type MovieCardProps = {
   movie: Movie;

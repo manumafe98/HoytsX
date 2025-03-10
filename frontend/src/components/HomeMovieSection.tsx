@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { getMovies } from "../hooks/getMovies";
-import { Movie } from "../types/movie.type";
+import { getMovies } from "@/hooks/getMovies";
+import { Movie } from "@/types/movie.type";
 import { MovieDialog } from "./MovieDialog";
 import { MovieCard } from "./MovieCard";
 

@@ -1,12 +1,12 @@
+import { Layout } from "@/components/Layout";
+import { MovieDescriptionSection } from "@/components/MovieDescriptionSection";
+import { MovieTitleSection } from "@/components/MovieTitleSection";
+import { PurchaseSeatDialog } from "@/components/PurchaseSeatDialog";
+import { SeatChartSection } from "@/components/SeatChartSection";
+import { getMovie } from "@/hooks/getMovie";
+import { Movie as MovieType } from "@/types/movie.type";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Layout } from "../components/Layout";
-import { MovieDescriptionSection } from "../components/MovieDescriptionSection";
-import { MovieTitleSection } from "../components/MovieTitleSection";
-import { PurchaseSeatDialog } from "../components/PurchaseSeatDialog";
-import { SeatChartSection } from "../components/SeatChartSection";
-import { getMovie } from "../hooks/getMovie";
-import { Movie as MovieType } from "../types/movie.type";
 
 export const Movie = () => {
   const { id } = useParams();

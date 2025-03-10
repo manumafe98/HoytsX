@@ -1,7 +1,7 @@
+import { HoytsX } from "@/typechain-types";
 import { expect } from "chai";
 import { Signer } from "ethers";
 import hre from "hardhat";
-import { HoytsX } from "../typechain-types";
 
 const NAME = "HoytsX";
 const SYMBOL = "HX";

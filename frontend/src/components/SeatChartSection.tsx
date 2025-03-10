@@ -1,6 +1,6 @@
+import { getMovieSeatsTaken } from "@/hooks/getMovieSeatsTaken";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getMovieSeatsTaken } from "../hooks/getMovieSeatsTaken";
 import { Seat } from "./Seat";
 import { SeatWalkAway } from "./SeatWalkAway";
 

@@ -1,6 +1,6 @@
-import { Facebook } from "../icons/Facebook";
-import { Instagram } from "../icons/Instagram";
-import { X } from "../icons/X";
+import { Facebook } from "@/icons/Facebook";
+import { Instagram } from "@/icons/Instagram";
+import { X } from "@/icons/X";
 
 export const Footer = () => {
   return (

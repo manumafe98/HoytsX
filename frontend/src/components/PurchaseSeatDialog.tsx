@@ -1,6 +1,6 @@
+import { mintSeat } from "@/hooks/mintSeat";
+import { Movie } from "@/types/movie.type";
 import { forwardRef } from "react";
-import { mintSeat } from "../hooks/mintSeat";
-import { Movie } from "../types/movie.type";
 import { Button } from "./Button";
 import { DialogLayout } from "./DialogLayout";
 

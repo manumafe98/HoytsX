@@ -1,5 +1,5 @@
-import { Layout } from "../components/Layout";
-import { HomeMovieSection } from "../components/HomeMovieSection";
+import { HomeMovieSection } from "@/components/HomeMovieSection";
+import { Layout } from "@/components/Layout";
 
 export const Home = () => {
   return (
