@@ -25,7 +25,7 @@ export const HomeMovieSection = () => {
   };
 
   return (
-    <div className="grid grid-rows-2 grid-cols-4 py-5 px-10 gap-y-5 mx-auto place-items-center bg-gradient-to-t from-[#163161] to-[#4469ac]">
+    <div className="grid grid-rows-2 grid-cols-4 py-5 px-10 gap-y-5 mx-auto place-items-center bg-gradient-to-t from-background-gradiant-start to-background-gradiant-end">
       <MovieDialog ref={openMovieDialogRef} movie={movieClicked} />
       {movies.map((movie, index) => (
         <MovieCard movie={movie} index={index} getMovieInfo={getMovieInfo} />

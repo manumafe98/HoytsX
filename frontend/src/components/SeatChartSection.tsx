@@ -25,7 +25,7 @@ export const SeatChartSection = ({
   return (
     <div className="flex flex-col col-span-2 h-auto border-1 border-solid border-gray-200 shadow-xl rounded-md p-5">
       <div className="grid grid-cols-4 grid-rows-5 w-full h-full gap-y-4">
-        <div className="flex justify-center items-center bg-[#121313] col-span-4 rounded-md text-white h-14 select-none">
+        <div className="flex justify-center items-center bg-dark-background col-span-4 rounded-md text-white h-14 select-none">
           <span className="font-bold">SCREEN</span>
         </div>
         <div className="flex row-span-4">

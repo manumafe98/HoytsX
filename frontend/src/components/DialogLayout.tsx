@@ -21,7 +21,7 @@ export const DialogLayout = ({
   return (
     <dialog
       ref={ref}
-      className={`bg-[#121313] backdrop:bg-black/45 m-auto rounded-lg ${minHeight} min-w-[25vw] focus:outline-none py-5`}
+      className={`bg-dark-background backdrop:bg-black/45 m-auto rounded-lg ${minHeight} min-w-[25vw] focus:outline-none py-5`}
     >
       <div className="flex flex-col items-center">
         <div className="flex justify-end w-5/6 mb-2">

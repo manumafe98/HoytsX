@@ -11,7 +11,7 @@ export const MovieCard = ({ movie, index, getMovieInfo }: MovieCardProps) => {
     <div
       key={movie.id}
       data-key={index}
-      className="w-80 h-12/12 overflow-hidden rounded-xl hover:scale-105 border-solid hover:border-4 border-[#9b2b66] ease-in duration-300 cursor-pointer"
+      className="w-80 h-12/12 overflow-hidden rounded-xl hover:scale-105 border-solid hover:border-4 border-primary ease-in duration-300 cursor-pointer"
       onClick={(event) => getMovieInfo(event)}
     >
       <img
