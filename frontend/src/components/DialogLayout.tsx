@@ -1,5 +1,5 @@
-import { ForwardedRef, ReactNode } from "react";
 import { Close } from "@/icons/Close";
+import { ForwardedRef, ReactNode } from "react";
 
 type DialogLayoutProps = {
   children: ReactNode;

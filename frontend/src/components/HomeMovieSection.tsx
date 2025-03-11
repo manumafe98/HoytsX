@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
 import { getMovies } from "@/hooks/getMovies";
 import { Movie } from "@/types/movie.type";
-import { MovieDialog } from "./MovieDialog";
+import { useEffect, useRef, useState } from "react";
 import { MovieCard } from "./MovieCard";
+import { MovieDialog } from "./MovieDialog";
 
 export const HomeMovieSection = () => {
   const [movies, setMovies] = useState<Movie[]>([]);

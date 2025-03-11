@@ -1,4 +1,5 @@
-import { BrowserProvider } from "ethers";
+import { TransactionResult } from "@/types/transactionResult.type";
+import { BrowserProvider, ContractTransactionResponse } from "ethers";
 import { getContract } from "./getContract";
 import { getProvider } from "./getProvider";
 
@@ -6,11 +7,30 @@ export const mintSeat = async (
   movieId: number,
   seatId: number,
   seatCost: number,
-) => {
-  const provider = getProvider() as BrowserProvider;
+): Promise<TransactionResult> => {
+  let success;
+  let transactionHash;
 
-  const signer = await provider.getSigner();
-  const contract = await getContract(signer);
+  try {
+    const provider = getProvider() as BrowserProvider;
 
-  contract.mintMovieTicket(movieId, seatId, { value: seatCost });
+    const signer = await provider.getSigner();
+    const contract = await getContract(signer);
+
+    const transaction: Promise<ContractTransactionResponse> =
+      contract.mintMovieTicket(movieId, seatId, { value: seatCost });
+
+    const receipt = await (await transaction).wait();
+
+    success = receipt?.status === 1;
+    transactionHash = (await transaction).hash;
+  } catch (error) {
+    success = false;
+    transactionHash = undefined;
+  }
+
+  return {
+    success,
+    transactionHash,
+  };
 };

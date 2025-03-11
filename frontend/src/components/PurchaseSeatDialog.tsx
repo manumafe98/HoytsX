@@ -3,18 +3,25 @@ import { Movie } from "@/types/movie.type";
 import { forwardRef } from "react";
 import { Button } from "./Button";
 import { DialogLayout } from "./DialogLayout";
+import { TransactionResult } from "@/types/transactionResult.type";
 
 type PurchaseSeatDialogProps = {
   movie: Movie | undefined;
   seatId: number;
+  handlePopUp: (data: TransactionResult) => void;
 };
 
 export const PurchaseSeatDialog = forwardRef<
   HTMLDialogElement,
   PurchaseSeatDialogProps
->(({ movie, seatId }, ref) => {
+>(({ movie, seatId, handlePopUp }, ref) => {
   const purchaseTiket = async () => {
-    await mintSeat(movie?.id as number, seatId, movie?.cost as number);
+    const transationResult = await mintSeat(
+      movie?.id as number,
+      seatId,
+      movie?.cost as number,
+    );
+    handlePopUp(transationResult);
     if (ref && typeof ref !== "function") {
       ref.current?.close();
     }
