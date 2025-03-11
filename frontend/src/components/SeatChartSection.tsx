@@ -1,27 +1,15 @@
-import { getMovieSeatsTaken } from "@/hooks/getMovieSeatsTaken";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { Seat } from "./Seat";
 import { SeatWalkAway } from "./SeatWalkAway";
 
 type SeatChartSectionProps = {
   openPurchaseDialog: (id: number) => void;
+  seatsTaken: number[];
 };
 
 export const SeatChartSection = ({
   openPurchaseDialog,
+  seatsTaken,
 }: SeatChartSectionProps) => {
-  const { id } = useParams();
-  const [seatsTaken, setSeatsTaken] = useState<number[]>([]);
-
-  useEffect(() => {
-    const fetchSeatsTaken = async () => {
-      const seats = await getMovieSeatsTaken(Number(id));
-      setSeatsTaken(seats);
-    };
-    fetchSeatsTaken();
-  }, []);
-
   return (
     <div className="flex flex-col col-span-2 h-auto border-1 border-solid border-gray-200 shadow-xl rounded-md p-5">
       <div className="grid grid-cols-4 grid-rows-5 w-full h-full gap-y-4">

@@ -5,6 +5,7 @@ import { PopUpNotification } from "@/components/PopUpNotification";
 import { PurchaseSeatDialog } from "@/components/PurchaseSeatDialog";
 import { SeatChartSection } from "@/components/SeatChartSection";
 import { getMovie } from "@/hooks/getMovie";
+import { getMovieSeatsTaken } from "@/hooks/getMovieSeatsTaken";
 import { Movie as MovieType } from "@/types/movie.type";
 import { TransactionResult } from "@/types/transactionResult.type";
 import { useEffect, useRef, useState } from "react";
@@ -20,7 +21,16 @@ export const Movie = () => {
   );
   const [showPopUpNotification, setShowPopUpNotification] =
     useState<boolean>(false);
+  const [seatsTaken, setSeatsTaken] = useState<number[]>([]);
   const openPurchaseSeatDialogRef = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    const fetchSeatsTaken = async () => {
+      const seats = await getMovieSeatsTaken(Number(id));
+      setSeatsTaken(seats);
+    };
+    fetchSeatsTaken();
+  }, [success]);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -56,7 +66,10 @@ export const Movie = () => {
       <div className="grid grid-cols-3 grid-rows-2 px-90 py-10 gap-x-4">
         <MovieTitleSection movie={movie} />
         <MovieDescriptionSection movie={movie} />
-        <SeatChartSection openPurchaseDialog={openPurchaseDialog} />
+        <SeatChartSection
+          openPurchaseDialog={openPurchaseDialog}
+          seatsTaken={seatsTaken}
+        />
         {showPopUpNotification && (
           <PopUpNotification
             success={success as boolean}
