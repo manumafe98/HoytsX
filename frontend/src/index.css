@@ -8,7 +8,6 @@
   --color-background-gradiant-end: #4469ac;
 }
 
-.text-outline {
-  -webkit-text-stroke: 1.5px black;
-  color: #9b2b66;
+body {
+  font-family: "Montserrat Variable", sans-serif;
 }

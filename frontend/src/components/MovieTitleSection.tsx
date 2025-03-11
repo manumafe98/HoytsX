@@ -7,12 +7,12 @@ type MovieTitleSectionProps = {
 export const MovieTitleSection = ({ movie }: MovieTitleSectionProps) => {
   return (
     <div className="flex flex-col col-span-2">
-      <h1 className="text-7xl font-bold text-outline">{movie?.name}</h1>
+      <h1 className="text-7xl font-bold text-primary">{movie?.name}</h1>
       <div className="flex gap-5 mt-2">
-        <span className="border-1 border-black rounded-4xl p-1 font-bold bg-primary text-white">
+        <span className="rounded-4xl p-2 mt-0.5 font-bold bg-primary text-white">
           {movie?.duration} minutes
         </span>
-        <span className="border-1 border-black rounded-4xl p-1 font-bold bg-primary text-white">
+        <span className="rounded-4xl p-2 mt-0.5 font-bold bg-primary text-white">
           {movie?.genre}
         </span>
       </div>
