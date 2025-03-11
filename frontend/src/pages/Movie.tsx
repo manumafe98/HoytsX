@@ -15,8 +15,11 @@ export const Movie = () => {
   const [movie, setMovie] = useState<MovieType>();
   const [seatId, setSeatId] = useState<number>(0);
   const [success, setSucess] = useState<boolean>();
-  const [transactionHash, setTransactionHash] = useState<string | undefined>("");
-  const [showPopUpNotification, setShowPopUpNotification] = useState<boolean>(false);
+  const [transactionHash, setTransactionHash] = useState<string | undefined>(
+    "",
+  );
+  const [showPopUpNotification, setShowPopUpNotification] =
+    useState<boolean>(false);
   const openPurchaseSeatDialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -40,7 +43,7 @@ export const Movie = () => {
     setSucess(success);
     setTransactionHash(transactionHash);
     setTimeout(() => setShowPopUpNotification(false), 4000);
-  }
+  };
 
   return (
     <Layout>
@@ -55,7 +58,10 @@ export const Movie = () => {
         <MovieDescriptionSection movie={movie} />
         <SeatChartSection openPurchaseDialog={openPurchaseDialog} />
         {showPopUpNotification && (
-          <PopUpNotification success={success as boolean} transactionHash={transactionHash} />
+          <PopUpNotification
+            success={success as boolean}
+            transactionHash={transactionHash}
+          />
         )}
       </div>
     </Layout>
