@@ -30,7 +30,7 @@ export const PurchaseSeatDialog = forwardRef<
   return (
     <DialogLayout ref={ref} minHeight="min-h-[25vh]">
       <div className="flex flex-col items-center p-5">
-        <p className="text-xl text-white w-5/6">
+        <p className="text-xl text-center text-white w-5/6">
           Confirm purchase of {movie?.name} seat {seatId} on date {movie?.date}{" "}
           at {movie?.time}
         </p>
