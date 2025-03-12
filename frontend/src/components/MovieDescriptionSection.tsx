@@ -7,6 +7,30 @@ type MovieDescriptionSectionProps = {
 export const MovieDescriptionSection = ({
   movie,
 }: MovieDescriptionSectionProps) => {
+
+  const movieData = [
+    {
+      category: "Original Title:",
+      value: `${movie?.name}`,
+    },
+    {
+      category: "Genre:",
+      value: `${movie?.genre}`,
+    },
+    {
+      category: "Director:",
+      value: `${movie?.director}`,
+    },
+    {
+      category: "Actors:",
+      value: `${movie?.actors[0]}, ${movie?.actors[1]}, ${movie?.actors[2]}`,
+    },
+    {
+      category: "Duration:",
+      value: `${movie?.duration} minutes`,
+    },
+  ];
+
   return (
     <div className="flex flex-col items-center row-span-2 border-1 border-solid border-gray-200 shadow-xl rounded-md p-5">
       <img
@@ -15,16 +39,12 @@ export const MovieDescriptionSection = ({
         alt={`${movie?.name} film cover image`}
       />
       <div className="grid grid-cols-2 w-90 mt-10">
-        <span className="font-bold text-lg mt-2">Original Title:</span>
-        <span className="mt-2 text-lg">{movie?.name}</span>
-        <span className="font-bold text-lg mt-2">Genre:</span>
-        <span className="mt-2 text-lg">{movie?.genre}</span>
-        <span className="font-bold text-lg mt-2">Director:</span>
-        <span className="mt-2 text-lg">{movie?.director}</span>
-        <span className="font-bold text-lg mt-2">Actors:</span>
-        <span className="mt-2 text-lg">{`${movie?.actors[0]}, ${movie?.actors[1]}, ${movie?.actors[2]}`}</span>
-        <span className="font-bold text-lg mt-2">Duration:</span>
-        <span className="mt-2 text-lg">{movie?.duration} minutes</span>
+        {movieData.map((data) => (
+          <>
+            <span className="font-bold text-lg mt-2">{data.category}</span>
+            <span className="mt-2 text-lg">{data.value}</span>
+          </>
+        ))}
       </div>
     </div>
   );

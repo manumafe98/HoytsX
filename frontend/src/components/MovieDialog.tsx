@@ -2,7 +2,7 @@ import { Ticket } from "@/icons/Ticket";
 import { Movie } from "@/types/movie.type";
 import { forwardRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "./Button";
+import { DialogButton } from "./DialogButton";
 import { DialogLayout } from "./DialogLayout";
 
 type MovieDialogProps = {
@@ -47,12 +47,12 @@ export const MovieDialog = forwardRef<HTMLDialogElement, MovieDialogProps>(
         <div className="w-5/6 mt-5 max-w-lg">
           <p className="text-md text-white">{movie?.description}</p>
         </div>
-        <Button onClick={navigateToMovieTab}>
+        <DialogButton onClick={navigateToMovieTab}>
           <div className="flex justify-center items-center gap-2">
             <Ticket className="fill-current text-black w-6 h-6" />
             <span className="text-xl font-semibold">Get your Ticket</span>
           </div>
-        </Button>
+        </DialogButton>
       </DialogLayout>
     );
   },

@@ -2,7 +2,7 @@ import { mintSeat } from "@/hooks/mintSeat";
 import { Movie } from "@/types/movie.type";
 import { TransactionResult } from "@/types/transactionResult.type";
 import { forwardRef } from "react";
-import { Button } from "./Button";
+import { DialogButton } from "./DialogButton";
 import { DialogLayout } from "./DialogLayout";
 
 type PurchaseSeatDialogProps = {
@@ -34,9 +34,9 @@ export const PurchaseSeatDialog = forwardRef<
           Confirm purchase of {movie?.name} seat {seatId} on date {movie?.date}{" "}
           at {movie?.time}
         </p>
-        <Button onClick={purchaseTiket}>
+        <DialogButton onClick={purchaseTiket}>
           <div>Confirm</div>
-        </Button>
+        </DialogButton>
       </div>
     </DialogLayout>
   );
