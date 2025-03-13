@@ -1,4 +1,5 @@
 import { Movie } from "@/types/movie.type";
+import React from "react";
 
 type MovieDescriptionSectionProps = {
   movie: Movie | undefined;
@@ -32,18 +33,18 @@ export const MovieDescriptionSection = ({
   ];
 
   return (
-    <div className="flex flex-col items-center row-span-2 border-1 border-solid border-gray-200 shadow-xl rounded-md p-5">
+    <div className="flex flex-col items-center row-span-2 border-1 border-solid border-gray-200 shadow-xl rounded-md p-5 max-xl:col-span-2">
       <img
         className="h-2/3 rounded-md w-90"
         src={`https://dweb.link/ipfs/${movie?.ipfsHash}`}
         alt={`${movie?.name} film cover image`}
       />
-      <div className="grid grid-cols-2 w-90 mt-10">
-        {movieData.map((data) => (
-          <>
+      <div className="grid grid-cols-2 w-90 mt-10 max-sm:px-2">
+        {movieData.map((data, index) => (
+          <React.Fragment key={index}>
             <span className="font-bold text-lg mt-2">{data.category}</span>
             <span className="mt-2 text-lg">{data.value}</span>
-          </>
+          </React.Fragment>
         ))}
       </div>
     </div>

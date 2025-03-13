@@ -63,7 +63,7 @@ export const Movie = () => {
         seatId={seatId}
         handlePopUp={handlePopUp}
       />
-      <div className="grid grid-cols-3 grid-rows-2 px-90 py-10 gap-x-4">
+      <div className="grid grid-cols-3 grid-rows-2 px-90 py-10 gap-x-4 max-md:gap-x-0 max-xl:grid-rows-3 max-xl:grid-cols-1 max-sm:px-0.5 max-lg:px-1 max-[1400px]:px-10 max-[1550px]:px-30 max-[1650px]:px-50 max-[1750px]:px-60 max-[1900px]:px-70">
         <MovieTitleSection movie={movie} />
         <MovieDescriptionSection movie={movie} />
         <SeatChartSection

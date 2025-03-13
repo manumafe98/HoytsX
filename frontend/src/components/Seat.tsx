@@ -24,11 +24,11 @@ export const Seat = ({
   let margin = "";
 
   if (chartType === "center") {
-    margin = "mt-4 mx-2";
+    margin = "mt-4 mx-2 max-sm:mx-0.5";
   } else if (chartType === "left") {
-    margin = "mr-2 mt-2";
+    margin = "mr-2 mt-2 max-sm:mr-1";
   } else {
-    margin = "ml-2 mt-2";
+    margin = "ml-2 mt-2 max-sm:ml-1";
   }
 
   const isSeatTaken = (index: number) => {
@@ -45,14 +45,14 @@ export const Seat = ({
 
   return (
     <div
-      className={`grid ${chartType === "center" ? `grid-cols-10` : `grid-cols-5`} grid-rows-5 gap-2 ${margin} items-center`}
+      className={`grid ${chartType === "center" ? `grid-cols-10` : `grid-cols-5`} ${margin} grid-rows-5 gap-2 max-[770px]:gap-1 max-[650px]:gap-0.5 items-center`}
     >
       {Array(totalSeats)
         .fill(1)
         .map((_, index) => (
           <div
             key={index + step}
-            className={`flex justify-center items-center rounded-2xl p-1 w-8 h-8 text-white ${calculateSeatColumnPosition(index)} ${calculateSeatRowPosition(index)} border-1 border-solid border-black ${isSeatTaken(index) ? `bg-gray-600` : `bg-secondary cursor-pointer hover:opacity-60`} select-none`}
+            className={`flex justify-center items-center rounded-2xl p-1 max-[650px]:p-2 size-8 max-[770px]:size-6 max-[650px]:size-5 text-white ${calculateSeatColumnPosition(index)} ${calculateSeatRowPosition(index)} border-1 border-solid border-black ${isSeatTaken(index) ? `bg-gray-600` : `bg-secondary cursor-pointer hover:opacity-60`} select-none`}
             onClick={
               isSeatTaken(index)
                 ? undefined
