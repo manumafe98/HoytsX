@@ -16,18 +16,28 @@ contract HoytsX is ERC721 {
         string genre;
         string director;
         string[] actors;
-        string date;
+        uint16 duration;
+        mapping(string => Showtime[]) showtimes;
+    }
+
+    struct Showtime {
         string time;
         uint256 cost;
-        uint16 duration;
         uint8 tickets;
         uint8 maxTickets;
+    }
+
+    struct DateShowtimes {
+        string date;
+        Showtime[] showtimes;
     }
 
     mapping(uint16 => Movie) movies;
     mapping(uint16 => mapping(address => bool)) public hasBought;
     mapping(uint16 => mapping(uint8 => address)) public seatTaken;
     mapping(uint16 => uint8[]) seatsTaken;
+    mapping(uint16 => mapping(string => mapping(string => Showtime))) movieShowtimeByDateAndTime;
+    mapping(uint16 => mapping(string => Showtime[])) movieShowtimesByDate;
 
     modifier onlyOwner() {
         require(msg.sender == owner);
@@ -45,41 +55,39 @@ contract HoytsX is ERC721 {
         string memory _genre,
         string memory _director,
         string[] memory _actors,
-        string memory _date,
-        string memory _time,
-        uint256 _cost,
         uint16 _duration,
-        uint8 _maxTickets
+        DateShowtimes[] memory _dateShowtimes
     ) public onlyOwner {
         totalMovies += 1;
-        movies[totalMovies] = Movie(
-            totalMovies,
-            _name,
-            _description,
-            _ipfsHash,
-            _genre,
-            _director,
-            _actors,
-            _date,
-            _time,
-            _cost,
-            _duration,
-            _maxTickets,
-            _maxTickets
-        );
+        Movie storage newMovie = movies[totalMovies];
+        newMovie.name = _name;
+        newMovie.description = _description;
+        newMovie.ipfsHash = _ipfsHash;
+        newMovie.genre = _genre;
+        newMovie.director = _director;
+        newMovie.actors = _actors;
+        newMovie.duration = _duration;
+
+        for (uint16 i = 0; i < _dateShowtimes.length; i++) {
+            string memory date = _dateShowtimes[i].date;
+            Showtime[] memory showtimes = _dateShowtimes[i].showtimes;
+
+            for (uint16 j = 0; j < showtimes.length; j++) {
+                movieShowtimesByDate[totalMovies][date].push(showtimes[j]);
+                newMovie.showtimes[date].push(showtimes[j]);
+                movieShowtimeByDateAndTime[totalMovies][date][showtimes[j].time] = showtimes[j];
+            }
+        }
     }
 
-    function mintMovieTicket(uint16 _id, uint8 _seat) public payable {
-        
+    function mintMovieTicket(uint16 _id, string memory _date, string memory _time, uint8 _seat) public payable {
         require(_id != 0);
         require(_id <= totalMovies);
-
-        require(msg.value >= movies[_id].cost);
+        require(msg.value >= movieShowtimeByDateAndTime[_id][_date][_time].cost);
         require(seatTaken[_id][_seat] == address(0));
-        require(_seat <= movies[_id].maxTickets);
+        require(_seat <= movieShowtimeByDateAndTime[_id][_date][_time].maxTickets);
 
-
-        movies[_id].tickets -= 1;
+        movieShowtimeByDateAndTime[_id][_date][_time].tickets -= 1;
         seatTaken[_id][_seat] = msg.sender;
         hasBought[_id][msg.sender] = true;
         seatsTaken[_id].push(_seat);
@@ -89,8 +97,33 @@ contract HoytsX is ERC721 {
         _safeMint(msg.sender, totalSupply);
     }
 
-    function getMovie(uint16 _id) public view returns (Movie memory) {
-        return movies[_id];
+    function getMovieDetails(uint16 _id) public view returns (
+        string memory name,
+        string memory description,
+        string memory ipfsHash,
+        string memory genre,
+        string memory director,
+        string[] memory actors,
+        uint16 duration
+    ) {
+        Movie storage movie = movies[_id];
+        return (
+            movie.name,
+            movie.description,
+            movie.ipfsHash,
+            movie.genre,
+            movie.director,
+            movie.actors,
+            movie.duration
+        );
+    }
+
+    function getMovieShowtimeByDateAndTime(uint16 _movieId, string memory _date, string memory _time) public view returns (Showtime memory) {
+        return movieShowtimeByDateAndTime[_movieId][_date][_time];
+    }
+
+    function getMovieShowtimesByDate(uint16 _movieId, string memory _date) public view returns (Showtime[] memory) {
+        return movieShowtimesByDate[_movieId][_date];
     }
 
     function getSeatsTaken(uint16 _id) public view returns (uint8[] memory) {
