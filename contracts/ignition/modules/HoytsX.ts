@@ -12,11 +12,15 @@ const movieData = [
     genre: "Sci-Fi",
     director: "Christopher Nolan",
     actors: ["Matthew McConaughey", "Ann Hathaway", "Jessica Chastain"],
-    date: "Feb 27",
-    time: "10:00PM",
-    cost: tokens(1),
     duration: 169,
-    maxTickets: 100,
+    showtimes: [
+      {
+        date: "Monday",
+        showtimes: [
+          { time: "10:00PM", cost: tokens(1), tickets: 100, maxTickets: 100 },
+        ],
+      },
+    ],
   },
   {
     name: "The Dark Knight",
@@ -26,11 +30,16 @@ const movieData = [
     genre: "Action",
     director: "Christopher Nolan",
     actors: ["Christian Bale", "Heath Ledger", "Aaron Eckhart"],
-    date: "Mar 15",
-    time: "08:00PM",
-    cost: tokens(2),
     duration: 152,
-    maxTickets: 100,
+    showtimes: [
+      {
+        date: "Wednesday",
+        showtimes: [
+          { time: "08:00PM", cost: tokens(2), tickets: 100, maxTickets: 100 },
+          { time: "10:00PM", cost: tokens(2), tickets: 100, maxTickets: 100 },
+        ],
+      },
+    ],
   },
   {
     name: "Avatar",
@@ -40,11 +49,21 @@ const movieData = [
     genre: "Action",
     director: "James Cameron",
     actors: ["Sam Worthington", "Zoe Saldaña", "Sigourney Weaver"],
-    date: "Apr 1",
-    time: "11:00PM",
-    cost: tokens(3),
     duration: 162,
-    maxTickets: 100,
+    showtimes: [
+      {
+        date: "Thursday",
+        showtimes: [
+          { time: "10:00PM", cost: tokens(3), tickets: 100, maxTickets: 100 },
+        ],
+      },
+      {
+        date: "Friday",
+        showtimes: [
+          { time: "10:00PM", cost: tokens(3), tickets: 100, maxTickets: 100 },
+        ],
+      },
+    ],
   },
   {
     name: "Gladiator",
@@ -54,11 +73,27 @@ const movieData = [
     genre: "Action",
     director: "Ridley Scott",
     actors: ["Russell Crowe", "Joaquin Phoenix", "Connie Nielsen"],
-    date: "Apr 10",
-    time: "07:00PM",
-    cost: tokens(4),
     duration: 155,
-    maxTickets: 100,
+    showtimes: [
+      {
+        date: "Friday",
+        showtimes: [
+          { time: "10:00PM", cost: tokens(4), tickets: 100, maxTickets: 100 },
+        ],
+      },
+      {
+        date: "Saturday",
+        showtimes: [
+          { time: "11:00PM", cost: tokens(4), tickets: 100, maxTickets: 100 },
+        ],
+      },
+      {
+        date: "Sunday",
+        showtimes: [
+          { time: "00:00AM", cost: tokens(4), tickets: 100, maxTickets: 100 },
+        ],
+      },
+    ],
   },
   {
     name: "Spider-Man: Into the Spider-Verse",
@@ -68,11 +103,17 @@ const movieData = [
     genre: "Animation",
     director: "Bob Persichetti",
     actors: ["Shameik Moore", "Jake Johnson", "Hailee Steinfeld"],
-    date: "May 1",
-    time: "06:00PM",
-    cost: tokens(5),
     duration: 117,
-    maxTickets: 100,
+    showtimes: [
+      {
+        date: "Sunday",
+        showtimes: [
+          { time: "04:00PM", cost: tokens(5), tickets: 100, maxTickets: 100 },
+          { time: "06:00PM", cost: tokens(5), tickets: 100, maxTickets: 100 },
+          { time: "08:00PM", cost: tokens(5), tickets: 100, maxTickets: 100 },
+        ],
+      },
+    ],
   },
   {
     name: "Treasure Planet",
@@ -82,21 +123,25 @@ const movieData = [
     genre: "Adventure",
     director: "Ron Clements",
     actors: ["Joseph Gordon-Levitt", "Emma Thompson", "Martin Short"],
-    date: "May 15",
-    time: "04:00PM",
-    cost: tokens(6),
     duration: 96,
-    maxTickets: 100,
+    showtimes: [
+      {
+        date: "Sunday",
+        showtimes: [
+          { time: "02:00PM", cost: tokens(6), tickets: 100, maxTickets: 100 },
+        ],
+      },
+    ],
   },
 ];
 
-export default buildModule("HoytsX", (m) => {
-  const hoytsX = m.contract("HoytsX", ["HoytsX", "HX"]);
+export default buildModule("HoytsX", (module) => {
+  const hoytsX = module.contract("HoytsX", ["HoytsX", "HX"]);
 
   for (let index = 0; index < movieData.length; index++) {
     const movie = movieData[index];
 
-    m.call(
+    module.call(
       hoytsX,
       "listMovie",
       [
@@ -106,11 +151,8 @@ export default buildModule("HoytsX", (m) => {
         movie.genre,
         movie.director,
         movie.actors,
-        movie.date,
-        movie.time,
-        movie.cost,
         movie.duration,
-        movie.maxTickets,
+        movie.showtimes,
       ],
       { id: `listMovie${index}` },
     );
