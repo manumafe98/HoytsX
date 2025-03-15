@@ -33,9 +33,8 @@ contract HoytsX is ERC721 {
     }
 
     mapping(uint16 => Movie) movies;
-    mapping(uint16 => mapping(address => bool)) public hasBought;
-    mapping(uint16 => mapping(uint8 => address)) public seatTaken;
-    mapping(uint16 => uint8[]) seatsTaken;
+    mapping(uint16 => mapping(string => mapping(string => mapping(uint8 => address)))) public seatTaken;
+    mapping(uint16 => mapping(string => mapping(string => uint8[]))) seatsTaken;
     mapping(uint16 => mapping(string => mapping(string => Showtime))) movieShowtimeByDateAndTime;
     mapping(uint16 => mapping(string => Showtime[])) movieShowtimesByDate;
 
@@ -84,13 +83,12 @@ contract HoytsX is ERC721 {
         require(_id != 0);
         require(_id <= totalMovies);
         require(msg.value >= movieShowtimeByDateAndTime[_id][_date][_time].cost);
-        require(seatTaken[_id][_seat] == address(0));
+        require(seatTaken[_id][_date][_time][_seat] == address(0));
         require(_seat <= movieShowtimeByDateAndTime[_id][_date][_time].maxTickets);
 
         movieShowtimeByDateAndTime[_id][_date][_time].tickets -= 1;
-        seatTaken[_id][_seat] = msg.sender;
-        hasBought[_id][msg.sender] = true;
-        seatsTaken[_id].push(_seat);
+        seatTaken[_id][_date][_time][_seat] = msg.sender;
+        seatsTaken[_id][_date][_time].push(_seat);
 
         totalSupply += 1;
 
@@ -126,8 +124,8 @@ contract HoytsX is ERC721 {
         return movieShowtimesByDate[_movieId][_date];
     }
 
-    function getSeatsTaken(uint16 _id) public view returns (uint8[] memory) {
-        return seatsTaken[_id];
+    function getSeatsTaken(uint16 _id, string memory _date, string memory _time) public view returns (uint8[] memory) {
+        return seatsTaken[_id][_date][_time];
     }
 
     function withdraw() public onlyOwner {
