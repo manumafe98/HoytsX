@@ -36,12 +36,12 @@ export const Seat = ({
   };
 
   const calculateSeatColumnPosition = (index: number): string => {
-    return `col-start-${(index % maxColumns) + 1 + columnStart}`
-  }
+    return `col-start-${(index % maxColumns) + 1 + columnStart}`;
+  };
 
   const calculateSeatRowPosition = (index: number): string => {
     return `row-start-${Math.ceil((index + 1) / maxRows) + rowStart}`;
-  }
+  };
 
   return (
     <div

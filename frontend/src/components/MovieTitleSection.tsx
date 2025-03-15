@@ -5,7 +5,6 @@ type MovieTitleSectionProps = {
 };
 
 export const MovieTitleSection = ({ movie }: MovieTitleSectionProps) => {
-
   const tags = [
     {
       content: `${movie?.duration} minutes`,
@@ -20,7 +19,10 @@ export const MovieTitleSection = ({ movie }: MovieTitleSectionProps) => {
       <h1 className="text-7xl font-bold text-primary">{movie?.name}</h1>
       <div className="flex gap-5 mt-2">
         {tags.map((tag, index) => (
-          <span key={index} className="rounded-4xl p-2 mt-0.5 font-bold bg-primary text-white">
+          <span
+            key={index}
+            className="rounded-4xl p-2 mt-0.5 font-bold bg-primary text-white"
+          >
             {tag.content}
           </span>
         ))}

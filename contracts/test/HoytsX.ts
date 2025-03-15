@@ -1,7 +1,7 @@
-import { HoytsX } from "../typechain-types";
 import { expect } from "chai";
 import { Signer } from "ethers";
 import hre from "hardhat";
+import { HoytsX } from "../typechain-types";
 
 type DateShowtimesStruct = HoytsX.DateShowtimesStruct;
 type ShowtimeStruct = HoytsX.ShowtimeStruct;
@@ -98,13 +98,9 @@ describe("HoytsX", () => {
     beforeEach(async () => {
       const transaction = await hoytsX
         .connect(buyer)
-        .mintMovieTicket(
-          ID,
-          MOVIE_DATE,
-          MOVIE_TIME,
-          SEAT,
-          { value: MOVIE_COST },
-        );
+        .mintMovieTicket(ID, MOVIE_DATE, MOVIE_TIME, SEAT, {
+          value: MOVIE_COST,
+        });
       await transaction.wait();
     });
 
@@ -137,7 +133,9 @@ describe("HoytsX", () => {
 
       const mintTransction = await hoytsX
         .connect(buyer)
-        .mintMovieTicket(ID, MOVIE_DATE, MOVIE_TIME, SEAT, { value: MOVIE_COST });
+        .mintMovieTicket(ID, MOVIE_DATE, MOVIE_TIME, SEAT, {
+          value: MOVIE_COST,
+        });
       await mintTransction.wait();
 
       const withdrawTransaction = await hoytsX.connect(deployer).withdraw();

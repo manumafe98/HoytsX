@@ -8,7 +8,6 @@ type MovieDescriptionSectionProps = {
 export const MovieDescriptionSection = ({
   movie,
 }: MovieDescriptionSectionProps) => {
-
   const movieData = [
     {
       category: "Original Title:",

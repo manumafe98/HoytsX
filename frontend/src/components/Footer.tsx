@@ -3,7 +3,6 @@ import { Instagram } from "@/icons/Instagram";
 import { X } from "@/icons/X";
 
 export const Footer = () => {
-
   const icons = [
     {
       type: Instagram,
