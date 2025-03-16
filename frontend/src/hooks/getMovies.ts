@@ -9,7 +9,7 @@ export const getMovies = async () => {
   const movies: Movie[] = [];
 
   for (let index = 1; index < totalMovies; index++) {
-    const movie = await contract.getMovie(index);
+    const movie = await contract.getMovieDetails(index);
     movies.push(movie);
   }
 

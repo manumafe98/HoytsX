@@ -6,10 +6,5 @@ export type Movie = {
   genre: string;
   director: string;
   actors: string[];
-  date: string;
-  time: string;
-  cost: number;
   duration: number;
-  tickets: number;
-  maxTickets: number;
 };

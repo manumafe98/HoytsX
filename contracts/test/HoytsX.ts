@@ -84,6 +84,7 @@ describe("HoytsX", () => {
   describe("Movie", () => {
     it("Returns movie attributes", async () => {
       const movie = await hoytsX.getMovieDetails(1);
+      expect(movie.id).to.be.equal(1);
       expect(movie.name).to.be.equal(MOVIE_NAME);
       expect(movie.actors[0]).to.be.equal("Matthew McConaughey");
     });
@@ -116,6 +117,11 @@ describe("HoytsX", () => {
     it("Updates seat status", async () => {
       const owner = await hoytsX.seatTaken(ID, MOVIE_DATE, MOVIE_TIME, SEAT);
       expect(owner).to.equal(await buyer.getAddress());
+    });
+
+    it("Check movie dates", async () => {
+      const dates = await hoytsX.getMovieDates(ID);
+      expect(dates[0]).to.equal(MOVIE_DATE);
     });
 
     it("Updates overall seating status", async () => {
