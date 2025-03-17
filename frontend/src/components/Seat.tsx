@@ -1,3 +1,5 @@
+type CharPosition = "left" | "right" | "center";
+
 type SeatProps = {
   step: number;
   columnStart: number;
@@ -5,7 +7,7 @@ type SeatProps = {
   rowStart: number;
   maxRows: number;
   totalSeats: number;
-  chartType: "left" | "right" | "center";
+  chartType: CharPosition;
   seatsTaken: number[];
   openPurchaseDialog: (id: number) => void;
 };
@@ -21,14 +23,16 @@ export const Seat = ({
   seatsTaken,
   openPurchaseDialog,
 }: SeatProps) => {
-  let margin = "";
+  const getMargin = (chartType: CharPosition) => {
+    return chartType === "center"
+      ? "mt-4 mx-2 max-sm:mx-0.5"
+      : chartType === "left"
+        ? "mr-2 mt-2 max-sm:mr-1"
+        : "ml-2 mt-2 max-sm:ml-1";
+  };
 
-  if (chartType === "center") {
-    margin = "mt-4 mx-2 max-sm:mx-0.5";
-  } else if (chartType === "left") {
-    margin = "mr-2 mt-2 max-sm:mr-1";
-  } else {
-    margin = "ml-2 mt-2 max-sm:ml-1";
+  const getGridCols = (chartType: CharPosition) => {
+    return chartType === "center" ? "grid-cols-10" : "grid-cols-5";
   }
 
   const isSeatTaken = (index: number) => {
@@ -45,7 +49,7 @@ export const Seat = ({
 
   return (
     <div
-      className={`grid ${chartType === "center" ? `grid-cols-10` : `grid-cols-5`} ${margin} grid-rows-5 gap-2 max-[770px]:gap-1 max-[650px]:gap-0.5 items-center`}
+      className={`grid ${getGridCols(chartType)} ${getMargin(chartType)} grid-rows-5 gap-2 max-[770px]:gap-1 max-[650px]:gap-0.5 items-center`}
     >
       {Array(totalSeats)
         .fill(1)

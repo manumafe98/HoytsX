@@ -5,6 +5,8 @@ import { getProvider } from "./getProvider";
 
 export const mintSeat = async (
   movieId: number,
+  date: string,
+  time: string,
   seatId: number,
   seatCost: number,
 ): Promise<TransactionResult> => {
@@ -18,7 +20,7 @@ export const mintSeat = async (
     const contract = await getContract(signer);
 
     const transaction: Promise<ContractTransactionResponse> =
-      contract.mintMovieTicket(movieId, seatId, { value: seatCost });
+      contract.mintMovieTicket(movieId, date, time, seatId, { value: seatCost });
 
     const receipt = await (await transaction).wait();
 
