@@ -129,6 +129,12 @@ describe("HoytsX", () => {
       expect(seats.length).to.equal(1);
       expect(seats[0]).to.equal(SEAT);
     });
+
+    it("Check movie times by date", async () => {
+      const times = await hoytsX.getMovieShowtimeTimesByDate(ID, MOVIE_DATE);
+      expect(times.length).to.equal(1);
+      expect(times[0]).to.equal(MOVIE_TIME);
+    });
   });
 
   describe("Withdrawing", () => {

@@ -386,34 +386,12 @@
         "type": "string"
       }
     ],
-    "name": "getMovieShowtimesByDate",
+    "name": "getMovieShowtimeTimesByDate",
     "outputs": [
       {
-        "components": [
-          {
-            "internalType": "string",
-            "name": "time",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "cost",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint8",
-            "name": "tickets",
-            "type": "uint8"
-          },
-          {
-            "internalType": "uint8",
-            "name": "maxTickets",
-            "type": "uint8"
-          }
-        ],
-        "internalType": "struct HoytsX.Showtime[]",
+        "internalType": "string[]",
         "name": "",
-        "type": "tuple[]"
+        "type": "string[]"
       }
     ],
     "stateMutability": "view",

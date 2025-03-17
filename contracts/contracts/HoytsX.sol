@@ -36,7 +36,7 @@ contract HoytsX is ERC721 {
     mapping(uint16 => mapping(string => mapping(string => mapping(uint8 => address)))) public seatTaken;
     mapping(uint16 => mapping(string => mapping(string => uint8[]))) seatsTaken;
     mapping(uint16 => mapping(string => mapping(string => Showtime))) movieShowtimeByDateAndTime;
-    mapping(uint16 => mapping(string => Showtime[])) movieShowtimesByDate;
+    mapping(uint16 => mapping(string => string[])) movieShowtimeTimesByDate;
     mapping(uint16 => string[]) movieDates;
 
     modifier onlyOwner() {
@@ -75,7 +75,7 @@ contract HoytsX is ERC721 {
             movieDates[totalMovies].push(date);
 
             for (uint16 j = 0; j < showtimes.length; j++) {
-                movieShowtimesByDate[totalMovies][date].push(showtimes[j]);
+                movieShowtimeTimesByDate[totalMovies][date].push(showtimes[j].time);
                 newMovie.showtimes[date].push(showtimes[j]);
                 movieShowtimeByDateAndTime[totalMovies][date][showtimes[j].time] = showtimes[j];
             }
@@ -125,8 +125,8 @@ contract HoytsX is ERC721 {
         return movieShowtimeByDateAndTime[_movieId][_date][_time];
     }
 
-    function getMovieShowtimesByDate(uint16 _movieId, string memory _date) public view returns (Showtime[] memory) {
-        return movieShowtimesByDate[_movieId][_date];
+    function getMovieShowtimeTimesByDate(uint16 _movieId, string memory _date) public view returns (string[] memory) {
+        return movieShowtimeTimesByDate[_movieId][_date];
     }
 
     function getSeatsTaken(uint16 _id, string memory _date, string memory _time) public view returns (uint8[] memory) {
