@@ -34,7 +34,7 @@ export const MovieDescriptionSection = ({
   return (
     <div className="flex flex-col items-center row-span-2 border-1 border-solid border-gray-200 shadow-xl rounded-md p-5 max-xl:col-span-2">
       <img
-        className="h-2/3 rounded-md w-90"
+        className="h-[540px] rounded-md w-90 "
         src={`https://dweb.link/ipfs/${movie?.ipfsHash}`}
         alt={`${movie?.name} film cover image`}
       />
