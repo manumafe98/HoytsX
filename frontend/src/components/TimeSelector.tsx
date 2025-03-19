@@ -24,7 +24,7 @@ export const TimeSelector = ({
 }: TimeSelectorProps) => {
   return (
     <React.Fragment>
-      <div className="flex items-center justify-between p-5 w-2/3 h-10 border-1 border-solid border-gray-200 shadow-md rounded-sm mt-2">
+      <div className="flex items-center justify-between p-5 w-2/3 h-10 border-1 border-solid border-gray-200 shadow-md rounded-sm mt-2 max-xl:w-full ">
         <span className="text-md">{time}</span>
         {!isTimeOpen ? (
           <ArrowDown

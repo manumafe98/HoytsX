@@ -10,14 +10,14 @@ import { MovieTitleSection } from "./MovieTitleSection";
 
 type MovieShowtimesInformationSectionProps = {
   movie: Movie | undefined;
-  transactionInfo: TransactionResult | undefined;
+  transactionResult: TransactionResult | undefined;
   openPurchaseDialog: (id: number) => void;
   getShowtime: (date: string, time: string) => void;
 };
 
 export const MovieShowtimesInformationSection = ({
   movie,
-  transactionInfo,
+  transactionResult,
   openPurchaseDialog,
   getShowtime,
 }: MovieShowtimesInformationSectionProps) => {
@@ -42,8 +42,8 @@ export const MovieShowtimesInformationSection = ({
 
   useEffect(() => {
     const fetchSeatsTaken = async () => {
-      if (transactionInfo) {
-        const { date, time } = transactionInfo;
+      if (transactionResult) {
+        const { date, time } = transactionResult;
         const seatsTaken = await getSeatsTaken(
           Number(id),
           date as string,
@@ -57,7 +57,7 @@ export const MovieShowtimesInformationSection = ({
       }
     };
     fetchSeatsTaken();
-  }, [transactionInfo]);
+  }, [transactionResult]);
 
   const getSeatsTaken = async (id: number, date: string, time: string) => {
     return await getMovieSeatsTaken(Number(id), date, time);
@@ -106,7 +106,7 @@ export const MovieShowtimesInformationSection = ({
   };
 
   return (
-    <div className="flex flex-col col-span-2 row-span-2">
+    <div className="flex flex-col col-span-2 row-span-2 max-xl:row-span-1">
       <MovieTitleSection
         movieName={movie?.name}
         movieDuration={movie?.duration}

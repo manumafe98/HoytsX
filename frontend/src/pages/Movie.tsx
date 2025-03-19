@@ -15,13 +15,9 @@ export const Movie = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState<MovieType>();
   const [seatId, setSeatId] = useState<number>(0);
-  const [success, setSucess] = useState<boolean>();
-  const [transactionInfo, setTransactionInfo] = useState<
+  const [transactionResult, setTransactionResult] = useState<
     TransactionResult | undefined
   >();
-  const [transactionHash, setTransactionHash] = useState<string | undefined>(
-    "",
-  );
   const [showPopUpNotification, setShowPopUpNotification] =
     useState<boolean>(false);
   const [showtime, setShowtime] = useState<Showtime>();
@@ -50,11 +46,8 @@ export const Movie = () => {
   };
 
   const handlePopUp = (data: TransactionResult) => {
-    const { success, transactionHash, date, time } = data;
-    setTransactionInfo({ success, date, time });
+    setTransactionResult(data);
     setShowPopUpNotification(true);
-    setSucess(success);
-    setTransactionHash(transactionHash);
     setTimeout(() => setShowPopUpNotification(false), 4000);
   };
 
@@ -68,18 +61,20 @@ export const Movie = () => {
         seatId={seatId}
         handlePopUp={handlePopUp}
       />
-      <div className="grid grid-cols-3 grid-rows-2 px-90 py-10 gap-x-4 max-md:gap-x-0 max-xl:grid-rows-3 max-xl:grid-cols-1 max-sm:px-0.5 max-lg:px-1 max-[1400px]:px-10 max-[1550px]:px-30 max-[1650px]:px-50 max-[1750px]:px-60 max-[1900px]:px-70">
+      <div className="grid grid-cols-3 grid-rows-2 px-90 py-10 gap-x-4 max-md:gap-x-0 max-xl:grid-rows-2 max-xl:grid-cols-1 max-sm:px-0.5 max-lg:px-1 max-[1400px]:px-10 max-[1550px]:px-30 max-[1650px]:px-50 max-[1750px]:px-60 max-[1900px]:px-70">
         <MovieShowtimesInformationSection
           movie={movie}
-          transactionInfo={transactionInfo}
+          transactionResult={transactionResult}
           openPurchaseDialog={openPurchaseDialog}
           getShowtime={getShowtime}
         />
         <MovieDescriptionSection movie={movie} />
         {showPopUpNotification && (
           <PopUpNotification
-            success={success as boolean}
-            transactionHash={transactionHash}
+            success={transactionResult ? transactionResult.success : false}
+            transactionHash={
+              transactionResult ? transactionResult.transactionHash : ""
+            }
           />
         )}
       </div>
