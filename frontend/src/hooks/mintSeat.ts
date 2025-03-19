@@ -20,7 +20,9 @@ export const mintSeat = async (
     const contract = await getContract(signer);
 
     const transaction: Promise<ContractTransactionResponse> =
-      contract.mintMovieTicket(movieId, date, time, seatId, { value: seatCost });
+      contract.mintMovieTicket(movieId, date, time, seatId, {
+        value: seatCost,
+      });
 
     const receipt = await (await transaction).wait();
 
@@ -34,5 +36,7 @@ export const mintSeat = async (
   return {
     success,
     transactionHash,
+    date,
+    time,
   };
 };

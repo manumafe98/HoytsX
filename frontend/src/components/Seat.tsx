@@ -33,7 +33,7 @@ export const Seat = ({
 
   const getGridCols = (chartType: CharPosition) => {
     return chartType === "center" ? "grid-cols-10" : "grid-cols-5";
-  }
+  };
 
   const isSeatTaken = (index: number) => {
     return seatsTaken.find((seat) => Number(seat) == index + step);

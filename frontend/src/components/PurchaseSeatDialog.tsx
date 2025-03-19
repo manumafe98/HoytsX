@@ -1,10 +1,10 @@
 import { mintSeat } from "@/hooks/mintSeat";
 import { Movie } from "@/types/movie.type";
+import { Showtime } from "@/types/showtime.type";
 import { TransactionResult } from "@/types/transactionResult.type";
 import { forwardRef } from "react";
 import { DialogButton } from "./DialogButton";
 import { DialogLayout } from "./DialogLayout";
-import { Showtime } from "@/types/showtime.type";
 
 type PurchaseSeatDialogProps = {
   movie: Movie | undefined;

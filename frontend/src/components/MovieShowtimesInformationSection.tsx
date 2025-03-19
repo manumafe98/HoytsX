@@ -1,20 +1,23 @@
 import { getMovieDates } from "@/hooks/getMovieDates";
+import { getMovieSeatsTaken } from "@/hooks/getMovieSeatsTaken";
 import { getMovieTimesByDate } from "@/hooks/getMovieTimesByDate";
 import { Movie } from "@/types/movie.type";
+import { TransactionResult } from "@/types/transactionResult.type";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getMovieSeatsTaken } from "@/hooks/getMovieSeatsTaken";
 import { DaySelector } from "./DaySelector";
 import { MovieTitleSection } from "./MovieTitleSection";
 
 type MovieShowtimesInformationSectionProps = {
   movie: Movie | undefined;
+  transactionInfo: TransactionResult | undefined;
   openPurchaseDialog: (id: number) => void;
   getShowtime: (date: string, time: string) => void;
 };
 
 export const MovieShowtimesInformationSection = ({
   movie,
+  transactionInfo,
   openPurchaseDialog,
   getShowtime,
 }: MovieShowtimesInformationSectionProps) => {
@@ -37,6 +40,29 @@ export const MovieShowtimesInformationSection = ({
     fetcthMovieDates();
   }, []);
 
+  useEffect(() => {
+    const fetchSeatsTaken = async () => {
+      if (transactionInfo) {
+        const { date, time } = transactionInfo;
+        const seatsTaken = await getSeatsTaken(
+          Number(id),
+          date as string,
+          time as string,
+        );
+
+        setShowtimeSeatsTaken((prevState) => ({
+          ...prevState,
+          [time as string]: seatsTaken,
+        }));
+      }
+    };
+    fetchSeatsTaken();
+  }, [transactionInfo]);
+
+  const getSeatsTaken = async (id: number, date: string, time: string) => {
+    return await getMovieSeatsTaken(Number(id), date, time);
+  };
+
   const openDate = async (date: string) => {
     const times = await getMovieTimesByDate(Number(id), date);
     setMovieTimesByDate((prevState) => ({
@@ -51,7 +77,7 @@ export const MovieShowtimesInformationSection = ({
   };
 
   const openTime = async (time: string, date: string) => {
-    const seatsTaken = await getMovieSeatsTaken(Number(id), date, time);
+    const seatsTaken = await getSeatsTaken(Number(id), date, time);
     setIsTimeOpen((prevState) => ({
       ...prevState,
       [time]: true,
@@ -81,7 +107,12 @@ export const MovieShowtimesInformationSection = ({
 
   return (
     <div className="flex flex-col col-span-2 row-span-2">
-      <MovieTitleSection movieName={movie?.name} movieDuration={movie?.duration} movieGenre={movie?.genre} movieDescription={movie?.description}/>
+      <MovieTitleSection
+        movieName={movie?.name}
+        movieDuration={movie?.duration}
+        movieGenre={movie?.genre}
+        movieDescription={movie?.description}
+      />
       <div className="flex flex-col mt-5">
         {movieDates.map((date, index) => (
           <DaySelector
