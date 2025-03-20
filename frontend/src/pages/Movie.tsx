@@ -1,10 +1,11 @@
-import { Layout } from "@/components/Layout";
-import { MovieDescriptionSection } from "@/components/MovieDescriptionSection";
-import { MovieShowtimesInformationSection } from "@/components/MovieShowtimesInformationSection";
-import { PopUpNotification } from "@/components/PopUpNotification";
-import { PurchaseSeatDialog } from "@/components/PurchaseSeatDialog";
-import { getMovie } from "@/hooks/getMovie";
-import { getMovieShowtime } from "@/hooks/getMovieShowtime";
+import {
+  Layout,
+  MovieDescriptionSection,
+  MovieShowtimesInformationSection,
+  PopUpNotification,
+  PurchaseSeatDialog,
+} from "@/components";
+import { getMovie, getMovieShowtime } from "@/hooks";
 import { Movie as MovieType } from "@/types/movie.type";
 import { Showtime } from "@/types/showtime.type";
 import { TransactionResult } from "@/types/transactionResult.type";

@@ -1,6 +1,4 @@
-import { Facebook } from "@/icons/Facebook";
-import { Instagram } from "@/icons/Instagram";
-import { X } from "@/icons/X";
+import { Facebook, Instagram, X } from "@/icons";
 
 export const Footer = () => {
   const icons = [

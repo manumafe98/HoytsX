@@ -1,4 +1,4 @@
-import { Close } from "@/icons/Close";
+import { Close } from "@/icons";
 import { ForwardedRef, ReactNode } from "react";
 
 type DialogLayoutProps = {

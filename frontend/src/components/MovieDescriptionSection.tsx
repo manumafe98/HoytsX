@@ -1,5 +1,5 @@
 import { Movie } from "@/types/movie.type";
-import React from "react";
+import { Fragment } from "react";
 
 type MovieDescriptionSectionProps = {
   movie: Movie | undefined;
@@ -40,10 +40,10 @@ export const MovieDescriptionSection = ({
       />
       <div className="grid grid-cols-2 w-90 mt-10 max-sm:px-2">
         {movieData.map((data, index) => (
-          <React.Fragment key={index}>
+          <Fragment key={index}>
             <span className="font-bold text-lg mt-2">{data.category}</span>
             <span className="mt-2 text-lg">{data.value}</span>
-          </React.Fragment>
+          </Fragment>
         ))}
       </div>
     </div>

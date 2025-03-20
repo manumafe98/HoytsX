@@ -1,6 +1,5 @@
-import { ArrowDown } from "@/icons/ArrowDown";
-import { ArrowUp } from "@/icons/ArrowUp";
-import React from "react";
+import { ArrowDown, ArrowUp } from "@/icons";
+import { Fragment, useCallback } from "react";
 import { TimeSelector } from "./TimeSelector";
 
 export type DaySelectorProps = {
@@ -28,19 +27,22 @@ export const DaySelector = ({
   closeTime,
   openPurchaseDialog,
 }: DaySelectorProps) => {
+  const handleOpenDate = useCallback(() => openDate(date), [openDate, date]);
+  const handleCloseDate = useCallback(() => closeDate(date), [closeDate, date]);
+
   return (
-    <React.Fragment>
+    <Fragment>
       <div className="flex items-center justify-between p-5 w-2/3 h-10 border-1 border-solid border-gray-200 shadow-md rounded-sm mt-2 max-xl:w-full">
         <span className="text-xl">{date}</span>
         {!isDateOpen ? (
           <ArrowDown
             className="fill-current text-primary w-6 h-6 hover:opacity-70 cursor-pointer"
-            onClick={() => openDate(date)}
+            onClick={handleOpenDate}
           />
         ) : (
           <ArrowUp
             className="fill-current text-primary w-6 h-6 hover:opacity-70 cursor-pointer"
-            onClick={() => closeDate(date)}
+            onClick={handleCloseDate}
           />
         )}
       </div>
@@ -60,6 +62,6 @@ export const DaySelector = ({
           ))}
         </div>
       )}
-    </React.Fragment>
+    </Fragment>
   );
 };

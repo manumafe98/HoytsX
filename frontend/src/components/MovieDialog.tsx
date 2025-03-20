@@ -1,4 +1,4 @@
-import { Ticket } from "@/icons/Ticket";
+import { Ticket } from "@/icons";
 import { Movie } from "@/types/movie.type";
 import { forwardRef } from "react";
 import { useNavigate } from "react-router-dom";

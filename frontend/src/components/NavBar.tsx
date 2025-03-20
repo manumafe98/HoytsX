@@ -10,6 +10,10 @@ export const NavBar = () => {
     navigate("/");
   };
 
+  const handleOpen = () => {
+    open();
+  }
+
   return (
     <div className="flex justify-between items-center h-36 bg-gradient-to-l from-secondary to-primary border-b-1 border-solid border-b-primary p-5">
       <h1
@@ -20,7 +24,7 @@ export const NavBar = () => {
       </h1>
       <button
         className="bg-primary rounded-4xl text-white text-xl cursor-pointer hover:bg-primary/80 duration-200 transform p-4"
-        onClick={() => open()}
+        onClick={handleOpen}
       >
         {isConnected
           ? `${address?.substring(0, 7)}...${address?.substring(address.length - 5)}`

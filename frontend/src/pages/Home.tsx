@@ -1,5 +1,4 @@
-import { HomeMovieSection } from "@/components/HomeMovieSection";
-import { Layout } from "@/components/Layout";
+import { HomeMovieSection, Layout } from "@/components";
 
 export const Home = () => {
   return (

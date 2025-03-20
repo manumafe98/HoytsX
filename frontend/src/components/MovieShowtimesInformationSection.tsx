@@ -1,6 +1,8 @@
-import { getMovieDates } from "@/hooks/getMovieDates";
-import { getMovieSeatsTaken } from "@/hooks/getMovieSeatsTaken";
-import { getMovieTimesByDate } from "@/hooks/getMovieTimesByDate";
+import {
+  getMovieDates,
+  getMovieSeatsTaken,
+  getMovieTimesByDate,
+} from "@/hooks";
 import { Movie } from "@/types/movie.type";
 import { TransactionResult } from "@/types/transactionResult.type";
 import { useEffect, useState } from "react";

@@ -21,7 +21,9 @@ export const MovieTitleSection = ({
   ];
   return (
     <>
-      <h1 className="text-7xl font-bold text-primary max-xl:text-center">{movieName}</h1>
+      <h1 className="text-7xl font-bold text-primary max-xl:text-center">
+        {movieName}
+      </h1>
       <div className="flex gap-5 mt-2 max-xl:justify-center">
         {tags.map((tag, index) => (
           <span

@@ -1,4 +1,4 @@
-import { mintSeat } from "@/hooks/mintSeat";
+import { mintSeat } from "@/hooks";
 import { Movie } from "@/types/movie.type";
 import { Showtime } from "@/types/showtime.type";
 import { TransactionResult } from "@/types/transactionResult.type";

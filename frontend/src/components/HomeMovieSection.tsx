@@ -1,4 +1,4 @@
-import { getMovies } from "@/hooks/getMovies";
+import { getMovies } from "@/hooks";
 import { Movie } from "@/types/movie.type";
 import { useEffect, useRef, useState } from "react";
 import { MovieCard } from "./MovieCard";

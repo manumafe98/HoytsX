@@ -9,5 +9,5 @@ createRoot(document.getElementById("root")!).render(
     <Routes>
       <Route path="/*" element={<HoytsX />} />
     </Routes>
-  </BrowserRouter>
+  </BrowserRouter>,
 );
