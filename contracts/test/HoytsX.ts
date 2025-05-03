@@ -77,7 +77,7 @@ describe("HoytsX", () => {
     });
 
     it("Sets the owner", async () => {
-      expect(await hoytsX.owner()).to.equal(await deployer.getAddress());
+      expect(await hoytsX.getOwner()).to.equal(await deployer.getAddress());
     });
   });
 
@@ -90,7 +90,7 @@ describe("HoytsX", () => {
     });
 
     it("Updates movie count", async () => {
-      const totalOccasions = await hoytsX.totalMovies();
+      const totalOccasions = await hoytsX.getTotalMovies();
       expect(totalOccasions).to.be.equal(1);
     });
   });
@@ -115,7 +115,7 @@ describe("HoytsX", () => {
     });
 
     it("Updates seat status", async () => {
-      const owner = await hoytsX.seatTaken(ID, MOVIE_DATE, MOVIE_TIME, SEAT);
+      const owner = await hoytsX.getSeatTaken(ID, MOVIE_DATE, MOVIE_TIME, SEAT);
       expect(owner).to.equal(await buyer.getAddress());
     });
 

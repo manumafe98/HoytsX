@@ -10,6 +10,7 @@
     "hardhat:clean": "cd contracts && npx hardhat clean",
     "hardhat:typechain": "cd contracts && npx hardhat typechain",
     "hardhat:deploy": "cd contracts && npx hardhat ignition deploy --reset ignition/modules/HoytsX.ts --network localhost",
+    "hardhat:coverage": "cd contracts && npx hardhat coverage",
     "frontend:dev": "cd frontend && npm run dev",
     "frontend:build": "cd frontend && npm run build",
     "prettier:check": "npx prettier . --check",

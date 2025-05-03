@@ -4,9 +4,9 @@ pragma solidity ^0.8.28;
 import { ERC721 } from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 contract HoytsX is ERC721 {
-    address public owner;
-    uint16 public totalMovies;
-    uint256 public totalSupply;
+    address immutable i_owner;
+    uint16 private s_totalMovies;
+    uint256 private s_totalSupply;
 
     struct Movie {
         uint16 id;
@@ -33,19 +33,19 @@ contract HoytsX is ERC721 {
     }
 
     mapping(uint16 => Movie) movies;
-    mapping(uint16 => mapping(string => mapping(string => mapping(uint8 => address)))) public seatTaken;
-    mapping(uint16 => mapping(string => mapping(string => uint8[]))) seatsTaken;
-    mapping(uint16 => mapping(string => mapping(string => Showtime))) movieShowtimeByDateAndTime;
-    mapping(uint16 => mapping(string => string[])) movieShowtimeTimesByDate;
-    mapping(uint16 => string[]) movieDates;
+    mapping(uint16 => mapping(string => mapping(string => mapping(uint8 => address)))) private seatTaken;
+    mapping(uint16 => mapping(string => mapping(string => uint8[]))) private seatsTaken;
+    mapping(uint16 => mapping(string => mapping(string => Showtime))) private movieShowtimeByDateAndTime;
+    mapping(uint16 => mapping(string => string[])) private movieShowtimeTimesByDate;
+    mapping(uint16 => string[]) private movieDates;
 
     modifier onlyOwner() {
-        require(msg.sender == owner);
+        require(msg.sender == i_owner);
         _;
     }
 
     constructor(string memory _name, string memory _symbol) ERC721(_name, _symbol) {
-        owner = msg.sender;
+        i_owner = msg.sender;
     }
 
     function listMovie(
@@ -57,8 +57,8 @@ contract HoytsX is ERC721 {
         string[] memory _actors,
         uint16 _duration,
         DateShowtimes[] memory _dateShowtimes
-    ) public onlyOwner {
-        totalMovies += 1;
+    ) external onlyOwner {
+        uint16 totalMovies = s_totalMovies += 1;
         Movie storage newMovie = movies[totalMovies];
         newMovie.id = totalMovies;
         newMovie.name = _name;
@@ -82,9 +82,9 @@ contract HoytsX is ERC721 {
         }
     }
 
-    function mintMovieTicket(uint16 _id, string memory _date, string memory _time, uint8 _seat) public payable {
+    function mintMovieTicket(uint16 _id, string memory _date, string memory _time, uint8 _seat) external payable {
         require(_id != 0);
-        require(_id <= totalMovies);
+        require(_id <= s_totalMovies);
         require(msg.value >= movieShowtimeByDateAndTime[_id][_date][_time].cost);
         require(seatTaken[_id][_date][_time][_seat] == address(0));
         require(_seat <= movieShowtimeByDateAndTime[_id][_date][_time].maxTickets);
@@ -93,12 +93,12 @@ contract HoytsX is ERC721 {
         seatTaken[_id][_date][_time][_seat] = msg.sender;
         seatsTaken[_id][_date][_time].push(_seat);
 
-        totalSupply += 1;
+        uint256 totalSupply = s_totalSupply += 1;
 
         _safeMint(msg.sender, totalSupply);
     }
 
-    function getMovieDetails(uint16 _id) public view returns (
+    function getMovieDetails(uint16 _id) external view returns (
         uint16 id,
         string memory name,
         string memory description,
@@ -121,24 +121,36 @@ contract HoytsX is ERC721 {
         );
     }
 
-    function getMovieShowtimeByDateAndTime(uint16 _movieId, string memory _date, string memory _time) public view returns (Showtime memory) {
+    function getMovieShowtimeByDateAndTime(uint16 _movieId, string memory _date, string memory _time) external view returns (Showtime memory) {
         return movieShowtimeByDateAndTime[_movieId][_date][_time];
     }
 
-    function getMovieShowtimeTimesByDate(uint16 _movieId, string memory _date) public view returns (string[] memory) {
+    function getMovieShowtimeTimesByDate(uint16 _movieId, string memory _date) external view returns (string[] memory) {
         return movieShowtimeTimesByDate[_movieId][_date];
     }
 
-    function getSeatsTaken(uint16 _id, string memory _date, string memory _time) public view returns (uint8[] memory) {
+    function getSeatTaken(uint16 _id, string memory _date, string memory _time, uint8 _seat) external view returns (address){
+        return seatTaken[_id][_date][_time][_seat];
+    }
+
+    function getSeatsTaken(uint16 _id, string memory _date, string memory _time) external view returns (uint8[] memory) {
         return seatsTaken[_id][_date][_time];
     }
 
-    function getMovieDates(uint16 _id) public view returns (string[] memory) {
+    function getMovieDates(uint16 _id) external view returns (string[] memory) {
         return movieDates[_id];
     }
 
-    function withdraw() public onlyOwner {
-        (bool success, ) = owner.call{value: address(this).balance}("");
+    function getOwner() external view returns (address) {
+        return i_owner;
+    }
+
+    function getTotalMovies() external view returns (uint16) {
+        return s_totalMovies;
+    }
+
+    function withdraw() external onlyOwner {
+        (bool success, ) = i_owner.call{value: address(this).balance}("");
         require(success);
     }
 }
