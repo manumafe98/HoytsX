@@ -1,7 +1,12 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
 import { ERC721 } from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+
+error HoytsX__InvalidId();
+error HoytsX__InsufficientAmount();
+error HoytsX__SeatAlreadyTaken();
+error HoytsX__InvalidSeat();
 
 contract HoytsX is ERC721 {
     address immutable i_owner;
@@ -38,6 +43,9 @@ contract HoytsX is ERC721 {
     mapping(uint16 => mapping(string => mapping(string => Showtime))) private movieShowtimeByDateAndTime;
     mapping(uint16 => mapping(string => string[])) private movieShowtimeTimesByDate;
     mapping(uint16 => string[]) private movieDates;
+
+    event MovieListed(uint16 indexed id, string name);
+    event TicketMinted(address indexed buyer, uint16 indexed movieId, uint8 seat, string date, string time);
 
     modifier onlyOwner() {
         require(msg.sender == i_owner);
@@ -80,14 +88,25 @@ contract HoytsX is ERC721 {
                 movieShowtimeByDateAndTime[totalMovies][date][showtimes[j].time] = showtimes[j];
             }
         }
+
+        emit MovieListed(totalMovies, _name);
     }
 
     function mintMovieTicket(uint16 _id, string memory _date, string memory _time, uint8 _seat) external payable {
-        require(_id != 0);
-        require(_id <= s_totalMovies);
-        require(msg.value >= movieShowtimeByDateAndTime[_id][_date][_time].cost);
-        require(seatTaken[_id][_date][_time][_seat] == address(0));
-        require(_seat <= movieShowtimeByDateAndTime[_id][_date][_time].maxTickets);
+        if (_id == 0 || _id >= s_totalMovies) {
+            revert HoytsX__InvalidId();
+        }
+        if (msg.value < movieShowtimeByDateAndTime[_id][_date][_time].cost) {
+            revert HoytsX__InsufficientAmount();
+        }
+
+        if (seatTaken[_id][_date][_time][_seat] != address(0)) {
+            revert HoytsX__SeatAlreadyTaken();
+        }
+
+        if (_seat >= movieShowtimeByDateAndTime[_id][_date][_time].maxTickets) {
+            revert HoytsX__InvalidSeat();
+        }
 
         movieShowtimeByDateAndTime[_id][_date][_time].tickets -= 1;
         seatTaken[_id][_date][_time][_seat] = msg.sender;
@@ -96,6 +115,7 @@ contract HoytsX is ERC721 {
         uint256 totalSupply = s_totalSupply += 1;
 
         _safeMint(msg.sender, totalSupply);
+        emit TicketMinted(msg.sender, _id, _seat, _date, _time);
     }
 
     function getMovieDetails(uint16 _id) external view returns (
