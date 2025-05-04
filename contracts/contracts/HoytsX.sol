@@ -3,6 +3,7 @@ pragma solidity ^0.8.28;
 
 import { ERC721 } from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
+error HoytsX__NotOwner();
 error HoytsX__InvalidId();
 error HoytsX__InsufficientAmount();
 error HoytsX__SeatAlreadyTaken();
@@ -48,7 +49,9 @@ contract HoytsX is ERC721 {
     event TicketMinted(address indexed buyer, uint16 indexed movieId, uint8 seat, string date, string time);
 
     modifier onlyOwner() {
-        require(msg.sender == i_owner);
+        if (msg.sender != i_owner) {
+            revert HoytsX__NotOwner();
+        }
         _;
     }
 
@@ -93,7 +96,7 @@ contract HoytsX is ERC721 {
     }
 
     function mintMovieTicket(uint16 _id, string memory _date, string memory _time, uint8 _seat) external payable {
-        if (_id == 0 || _id >= s_totalMovies) {
+        if (_id == 0 || _id > s_totalMovies) {
             revert HoytsX__InvalidId();
         }
         if (msg.value < movieShowtimeByDateAndTime[_id][_date][_time].cost) {

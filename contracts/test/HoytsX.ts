@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { Signer } from "ethers";
+import { ContractTransactionResponse, Signer } from "ethers";
 import hre from "hardhat";
 import { HoytsX } from "../typechain-types";
 
@@ -44,6 +44,7 @@ describe("HoytsX", () => {
   let hoytsX: HoytsX;
   let deployer: Signer, buyer: Signer;
   let balanceBefore: bigint;
+  let listMovieTransaction: ContractTransactionResponse;
 
   beforeEach(async () => {
     [deployer, buyer] = await hre.ethers.getSigners();
@@ -51,7 +52,7 @@ describe("HoytsX", () => {
     const HoytsXFactory = hre.ethers.getContractFactory("HoytsX");
     hoytsX = await (await HoytsXFactory).deploy(NAME, SYMBOL);
 
-    const transaction = await hoytsX
+    listMovieTransaction = await hoytsX
       .connect(deployer)
       .listMovie(
         MOVIE_NAME,
@@ -64,7 +65,7 @@ describe("HoytsX", () => {
         MOVIE_DATE_SHOWTIMES,
       );
 
-    await transaction.wait();
+    await listMovieTransaction.wait();
   });
 
   describe("Deployment", () => {
@@ -78,6 +79,27 @@ describe("HoytsX", () => {
 
     it("Sets the owner", async () => {
       expect(await hoytsX.getOwner()).to.equal(await deployer.getAddress());
+    });
+
+    it("Emits MovieListed event", async () => {
+      expect(listMovieTransaction).to.emit(hoytsX, "MovieListed");
+    });
+
+    it("Buyer tries to list movie", async () => {
+      expect(
+        hoytsX
+          .connect(buyer)
+          .listMovie(
+            MOVIE_NAME,
+            MOVIE_DESCRIPTION,
+            MOVIE_IPFS_HASH,
+            MOVIE_GENRE,
+            MOVIE_DIRECTOR,
+            MOVIE_ACTORS,
+            MOVIE_DURATION,
+            MOVIE_DATE_SHOWTIMES,
+          ),
+      ).to.be.revertedWithCustomError(hoytsX, "HoytsX__NotOwner");
     });
   });
 
@@ -96,13 +118,49 @@ describe("HoytsX", () => {
   });
 
   describe("Minting", () => {
+    let mintTicketMovieTransaction: ContractTransactionResponse;
+
     beforeEach(async () => {
-      const transaction = await hoytsX
+      mintTicketMovieTransaction = await hoytsX
         .connect(buyer)
         .mintMovieTicket(ID, MOVIE_DATE, MOVIE_TIME, SEAT, {
           value: MOVIE_COST,
         });
-      await transaction.wait();
+      await mintTicketMovieTransaction.wait();
+    });
+
+    it("Try to mint invalid id", async () => {
+      expect(
+        hoytsX.connect(buyer).mintMovieTicket(2, MOVIE_DATE, MOVIE_TIME, SEAT, {
+          value: MOVIE_COST,
+        }),
+      ).to.be.revertedWithCustomError(hoytsX, "HoytsX__InvalidId");
+    });
+
+    it("Try to mint with invalid value", async () => {
+      expect(
+        hoytsX
+          .connect(buyer)
+          .mintMovieTicket(ID, MOVIE_DATE, MOVIE_TIME, SEAT, {
+            value: hre.ethers.parseUnits("0.5", "ether"),
+          }),
+      ).to.be.revertedWithCustomError(hoytsX, "HoytsX__InsufficientAmount");
+    });
+
+    it("Try to mint invalid seat", async () => {
+      expect(
+        hoytsX.connect(buyer).mintMovieTicket(ID, MOVIE_DATE, MOVIE_TIME, 101, {
+          value: MOVIE_COST,
+        }),
+      ).to.be.revertedWithCustomError(hoytsX, "HoytsX__InvalidSeat");
+    });
+
+    it("Try to mint seat already taken", async () => {
+      expect(
+        hoytsX.connect(buyer).mintMovieTicket(ID, MOVIE_DATE, MOVIE_TIME, 50, {
+          value: MOVIE_COST,
+        }),
+      ).to.be.revertedWithCustomError(hoytsX, "HoytsX__SeatAlreadyTaken");
     });
 
     it("Updates ticket count", async () => {
@@ -134,6 +192,10 @@ describe("HoytsX", () => {
       const times = await hoytsX.getMovieShowtimeTimesByDate(ID, MOVIE_DATE);
       expect(times.length).to.equal(1);
       expect(times[0]).to.equal(MOVIE_TIME);
+    });
+
+    it("Emits TicketMinted event", async () => {
+      expect(mintTicketMovieTransaction).to.emit(hoytsX, "TicketMinted");
     });
   });
 
