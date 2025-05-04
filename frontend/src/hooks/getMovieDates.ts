@@ -1,8 +1,6 @@
 import { getContract } from "./getContract";
-import { getProvider } from "./getProvider";
 
 export const getMovieDates = async (id: number): Promise<string[]> => {
-  const provider = getProvider();
-  const contract = await getContract(provider);
+  const contract = getContract();
   return contract.getMovieDates(id);
 };

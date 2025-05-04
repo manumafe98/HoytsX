@@ -17,7 +17,7 @@ export const mintSeat = async (
     const provider = getProvider() as BrowserProvider;
 
     const signer = await provider.getSigner();
-    const contract = await getContract(signer);
+    const contract = getContract(signer);
 
     const transaction: Promise<ContractTransactionResponse> =
       contract.mintMovieTicket(movieId, date, time, seatId, {

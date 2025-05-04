@@ -16,7 +16,8 @@ export default defineConfig({
     "import.meta.env.PROJECT_ID": JSON.stringify(process.env.PROJECT_ID),
     "import.meta.env.PINATA_JWT": JSON.stringify(process.env.PINATA_JWT),
     "import.meta.env.PINATA_GATEWAY": JSON.stringify(process.env.PINATA_GATEWAY),
-    "import.meta.env.RPC_URL": JSON.stringify(process.env.RPC_URL)
+    "import.meta.env.RPC_URL": JSON.stringify(process.env.RPC_URL),
+    "import.meta.env.CHAIN_ID": JSON.stringify(process.env.CHAIN_ID)
   },
   resolve: {
     alias: {

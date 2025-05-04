@@ -12,7 +12,7 @@ export const NavBar = () => {
 
   const handleOpen = () => {
     open();
-  }
+  };
 
   return (
     <div className="flex justify-between items-center h-36 bg-gradient-to-l from-secondary to-primary border-b-1 border-solid border-b-primary p-5">
