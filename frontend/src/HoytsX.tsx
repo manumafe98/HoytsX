@@ -1,9 +1,13 @@
 import { EthersAdapter } from "@reown/appkit-adapter-ethers";
-import { defineChain } from "@reown/appkit/networks";
+import { defineChain, sepolia } from "@reown/appkit/networks";
 import { createAppKit } from "@reown/appkit/react";
 import { Route, Routes } from "react-router-dom";
+import { IsOwnerRequired } from "./components/isOwnerRequired";
+import { Admin } from "./pages/Admin";
 import { Home } from "./pages/Home";
 import { Movie } from "./pages/Movie";
+import { Unauthorized } from "./pages/Unauthorized";
+import { Unavailable } from "./pages/Unavailable";
 
 const hardhatNetwork = defineChain({
   id: 31337,
@@ -37,7 +41,7 @@ const metadata = {
 
 createAppKit({
   adapters: [new EthersAdapter()],
-  networks: [hardhatNetwork],
+  networks: [hardhatNetwork, sepolia],
   metadata,
   projectId: import.meta.env.PROJECT_ID,
   features: {
@@ -52,6 +56,13 @@ export const HoytsX = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/movie/:id" element={<Movie />} />
+
+      <Route element={<IsOwnerRequired />}>
+        <Route path="/admin" element={<Admin />} />
+      </Route>
+
+      <Route path="/unauthorized" element={<Unauthorized />} />
+      <Route path="*" element={<Unavailable />} />
     </Routes>
   );
 };
