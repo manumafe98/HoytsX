@@ -33,6 +33,8 @@ export const Movie = () => {
     fetchMovie();
   }, [id]);
 
+  console.log(movie);
+
   const openPurchaseDialog = (id: number) => {
     if (openPurchaseSeatDialogRef.current) {
       openPurchaseSeatDialogRef.current.showModal();

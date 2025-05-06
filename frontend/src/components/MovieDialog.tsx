@@ -30,7 +30,7 @@ export const MovieDialog = forwardRef<HTMLDialogElement, MovieDialogProps>(
         <div className="flex justify-center w-5/6 h-72 rounded-lg overflow-hidden">
           <img
             className="w-full h-full object-cover"
-            src={`https://dweb.link/ipfs/${movie?.ipfsHash}`}
+            src={`${import.meta.env.PINATA_GATEWAY}/ipfs/${movie?.ipfsHash}`}
             alt={`${movie?.name} film cover image`}
           />
         </div>

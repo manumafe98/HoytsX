@@ -1,9 +1,10 @@
+import { Close } from "@/icons";
 import { useState } from "react";
 
 interface ActorsInputProps {
   actors: string[];
   onAddActor: (actorName: string) => void;
-  onRemoveActor: (index: number) => void;
+  onRemoveActor: (actor: string) => void;
 }
 
 export const ActorsInput = ({
@@ -41,27 +42,23 @@ export const ActorsInput = ({
         </div>
 
         <div className="mt-3">
-          {actors.length === 0 ? (
-            <p className="text-gray-500 italic">No actors added yet</p>
-          ) : (
-            <div className="flex flex-wrap gap-2">
-              {actors.map((actor, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center bg-primary px-3 py-1 rounded-full"
+          <div className="flex flex-wrap gap-2">
+            {actors.map((actor, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-center bg-primary px-4 py-2 rounded-full"
+              >
+                <span className="text-white">{actor}</span>
+                <button
+                  type="button"
+                  onClick={() => onRemoveActor(actor)}
+                  className="ml-2 hover:opacity-75"
                 >
-                  <span className="text-white">{actor}</span>
-                  <button
-                    type="button"
-                    onClick={() => onRemoveActor(idx)}
-                    className="ml-2 text-white hover:white/10"
-                  >
-                    &times;
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
+                  <Close className="fill-current text-white size-5" />
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

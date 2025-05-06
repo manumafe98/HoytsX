@@ -1,4 +1,4 @@
-import { DownloadCloudIcon, X } from "@/icons";
+import { Close, DownloadCloudIcon } from "@/icons";
 import { useRef, useState } from "react";
 
 interface ImageUploaderProps {
@@ -89,8 +89,8 @@ export const ImageUploader = ({ handleImageChange }: ImageUploaderProps) => {
         </>
       ) : (
         <>
-          <X
-            className="absolute fill-current text-white w-6 h-6 right-1 top-1 cursor-pointer"
+          <Close
+            className="absolute fill-current text-white size-8 right-2 top-2 cursor-pointer hover:opacity-75"
             onClick={removeImage}
           />
           <img src={previewUrl as string} alt={altText} className="max-h-72" />

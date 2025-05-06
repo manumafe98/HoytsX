@@ -63,13 +63,12 @@ export const ShowtimesInput = ({
                 </select>
               </div>
             </div>
-
             {day.showtimes.map((showtime, showtimeIndex) => (
               <div
                 key={showtimeIndex}
                 className="p-3 mb-3 bg-white rounded border border-gray-200"
               >
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Time
@@ -88,7 +87,6 @@ export const ShowtimesInput = ({
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:primary"
                     />
                   </div>
-
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Cost (tokens)
@@ -108,27 +106,6 @@ export const ShowtimesInput = ({
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:primary"
                     />
                   </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Tickets
-                    </label>
-                    <input
-                      type="number"
-                      min="0"
-                      value={showtime.tickets}
-                      onChange={(e) =>
-                        onShowtimeChange(
-                          dayIndex,
-                          showtimeIndex,
-                          "tickets",
-                          e.target.value,
-                        )
-                      }
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:primary"
-                    />
-                  </div>
-
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Max Tickets
@@ -149,35 +126,32 @@ export const ShowtimesInput = ({
                     />
                   </div>
                 </div>
-
                 <div className="mt-2 flex justify-end">
                   <button
                     type="button"
                     onClick={() => onRemoveShowtime(dayIndex, showtimeIndex)}
-                    className="text-red-600 hover:text-red-800 text-sm"
+                    className="text-red-600 hover:text-red-800 font-semibold text-sm"
                   >
                     Remove Showtime
                   </button>
                 </div>
               </div>
             ))}
-
             <div className="mt-2">
               <button
                 type="button"
                 onClick={() => onAddShowtime(dayIndex)}
-                className="text-blue-600 hover:text-blue-800 text-sm"
+                className="mt-3 bg-primary text-white px-4 py-2 rounded hover:opacity-90 cursor-pointer"
               >
                 + Add Another Showtime
               </button>
             </div>
           </div>
         ))}
-
         <button
           type="button"
           onClick={onAddDay}
-          className="mt-3 bg-primary text-white px-4 py-2 rounded hover:opacity-90"
+          className="mt-3 bg-primary text-white px-4 py-2 rounded hover:opacity-90 cursor-pointer"
         >
           + Add Another Day
         </button>

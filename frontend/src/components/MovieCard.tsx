@@ -16,7 +16,7 @@ export const MovieCard = ({ movie, index, getMovieInfo }: MovieCardProps) => {
     >
       <img
         className="w-full h-full object-cover"
-        src={`https://dweb.link/ipfs/${movie.ipfsHash}`}
+        src={`${import.meta.env.PINATA_GATEWAY}/ipfs/${movie.ipfsHash}`}
         alt={`${movie.name} film cover image`}
       />
     </div>

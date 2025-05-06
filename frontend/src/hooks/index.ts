@@ -7,4 +7,6 @@ export * from "@/hooks/getMovieShowtime.ts";
 export * from "@/hooks/getMovieTimesByDate.ts";
 export * from "@/hooks/getProvider.ts";
 export * from "@/hooks/index.ts";
+export * from "@/hooks/listMovie.ts";
 export * from "@/hooks/mintSeat.ts";
+export * from "@/hooks/uploadToPinata.ts";
