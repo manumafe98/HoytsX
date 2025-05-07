@@ -1,6 +1,6 @@
+import { ArrowLeft, ArrowRight } from "@/icons";
 import { Movie } from "@/types/movie.type";
 import { useState } from "react";
-import { TiChevronLeftOutline, TiChevronRightOutline } from "react-icons/ti";
 import { CarouselCard } from "./CarouselCard";
 
 const MAX_VISIBILITY = 3;
@@ -22,7 +22,7 @@ export const Carousel = ({ movies, onCardClick }: CarouselProps) => {
           onClick={() => setActive((i) => i - 1)}
           className="absolute left-4 z-10 bg-primary/30 hover:bg-primary/50 text-primary rounded-full p-2"
         >
-          <TiChevronLeftOutline size={30} />
+          <ArrowLeft className="fill-current text-primary size-8" />
         </button>
       )}
 
@@ -51,7 +51,7 @@ export const Carousel = ({ movies, onCardClick }: CarouselProps) => {
           onClick={() => setActive((i) => i + 1)}
           className="absolute right-4 z-10 bg-primary/30 hover:bg-primary/50 text-primary rounded-full p-2"
         >
-          <TiChevronRightOutline size={30} />
+          <ArrowRight className="fill-current text-primary size-8" />
         </button>
       )}
     </div>

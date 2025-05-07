@@ -1,4 +1,6 @@
 export * from "@/icons/ArrowDown";
+export * from "@/icons/ArrowLeft";
+export * from "@/icons/ArrowRight";
 export * from "@/icons/ArrowUp";
 export * from "@/icons/Close";
 export * from "@/icons/DownloadCloudIcon";

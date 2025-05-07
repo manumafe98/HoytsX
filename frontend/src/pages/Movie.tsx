@@ -72,7 +72,12 @@ export const Movie = () => {
         <MovieDescriptionSection movie={movie} />
         {showPopUpNotification && (
           <PopUpNotification
-            success={transactionResult ? transactionResult.success : false}
+            type={transactionResult ? "success" : "error"}
+            message={
+              transactionResult
+                ? `Seat purchased successfully, tx: ${transactionResult.transactionHash}`
+                : "Something went wrong"
+            }
             transactionHash={
               transactionResult ? transactionResult.transactionHash : ""
             }
