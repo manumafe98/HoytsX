@@ -2,7 +2,7 @@ import { Layout } from "@/components/Layout";
 
 export const Unauthorized = () => {
   return (
-    <Layout>
+    <Layout showFooter={true}>
       <div className="flex items-center h-full justify-center my-auto min-h-full">
         <div className="text-center">
           <h1 className="text-9xl font-extrabold text-primary mb-6">401</h1>

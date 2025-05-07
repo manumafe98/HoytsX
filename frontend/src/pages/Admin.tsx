@@ -147,8 +147,8 @@ export const Admin = () => {
   };
 
   return (
-    <Layout>
-      <div className="flex justify-center items-center h-full bg-gradient-to-t from-background-gradiant-start to-background-gradiant-end p-5">
+    <Layout showFooter={false}>
+      <div className="h-auto flex justify-center items-center bg-gradient-to-t from-background-gradiant-start to-background-gradiant-end p-5">
         <form
           className="flex flex-col justify-center items-center w-2/5 max-xl:w-3/5 max-lg:w-4/5 h-11/12 border-2 border-solid border-primary gap-y-5 p-5"
           onSubmit={handleSubmit}

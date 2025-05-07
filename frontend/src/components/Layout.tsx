@@ -4,18 +4,18 @@ import { NavBar } from "./NavBar";
 
 type LayoutProps = {
   children: ReactNode;
+  onNavigate?: (section: string) => void;
+  showFooter: boolean;
 };
 
-export const Layout = ({ children }: LayoutProps) => {
+export const Layout = ({ children, onNavigate, showFooter }: LayoutProps) => {
   return (
-    <div className="min-h-screen h-auto flex flex-col">
+    <div className="min-h-screen h-screen flex flex-col">
       <header>
-        <NavBar />
+        <NavBar onNavigate={onNavigate} />
       </header>
-      <section className="flex-1">{children}</section>
-      <footer>
-        <Footer />
-      </footer>
+      <div className="flex-1">{children}</div>
+      {showFooter && <Footer />}
     </div>
   );
 };
