@@ -2,6 +2,7 @@ import { ArrowLeft, ArrowRight } from "@/icons";
 import { Movie } from "@/types/movie.type";
 import { useState } from "react";
 import { CarouselCard } from "./CarouselCard";
+import { useWindowSize } from "@/hooks";
 
 const MAX_VISIBILITY = 3;
 
@@ -12,6 +13,7 @@ type CarouselProps = {
 
 export const Carousel = ({ movies, onCardClick }: CarouselProps) => {
   const [active, setActive] = useState(2);
+  const showMenuIcon = useWindowSize();
 
   const count = movies.length;
 
@@ -20,7 +22,7 @@ export const Carousel = ({ movies, onCardClick }: CarouselProps) => {
       {active > 0 && (
         <button
           onClick={() => setActive((i) => i - 1)}
-          className="absolute left-4 z-10 bg-primary/30 hover:bg-primary/50 text-primary rounded-full p-2"
+          className={`fixed ${showMenuIcon ? "-bottom-20" : ""} left-4 z-10 bg-primary/30 hover:bg-primary/50 text-primary rounded-full p-2`}
         >
           <ArrowLeft className="fill-current text-primary size-8" />
         </button>
@@ -49,7 +51,7 @@ export const Carousel = ({ movies, onCardClick }: CarouselProps) => {
       {active < count - 1 && (
         <button
           onClick={() => setActive((i) => i + 1)}
-          className="absolute right-4 z-10 bg-primary/30 hover:bg-primary/50 text-primary rounded-full p-2"
+          className={`fixed ${showMenuIcon ? "-bottom-20" : ""} right-4 z-10 bg-primary/30 hover:bg-primary/50 text-primary rounded-full p-2`}
         >
           <ArrowRight className="fill-current text-primary size-8" />
         </button>

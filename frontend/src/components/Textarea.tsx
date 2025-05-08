@@ -16,6 +16,7 @@ export const Textarea = ({ label, handleOnChange }: TextareaProps) => {
         name="description"
         className="bg-white resize-none p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
         rows={4}
+        maxLength={200}
         onChange={(event) => handleOnChange(label, event)}
       />
     </div>

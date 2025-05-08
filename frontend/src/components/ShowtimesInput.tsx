@@ -94,6 +94,7 @@ export const ShowtimesInput = ({
                     <input
                       type="number"
                       min="0"
+                      step="any"
                       value={showtime.cost}
                       onChange={(e) =>
                         onShowtimeChange(
@@ -113,6 +114,7 @@ export const ShowtimesInput = ({
                     <input
                       type="number"
                       min="0"
+                      max="100"
                       value={showtime.maxTickets}
                       onChange={(e) =>
                         onShowtimeChange(

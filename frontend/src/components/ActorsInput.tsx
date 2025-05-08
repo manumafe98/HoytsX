@@ -15,10 +15,10 @@ export const ActorsInput = ({
   const [actorInput, setActorInput] = useState<string>("");
 
   const handleActorKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && actorInput.trim()) {
+    if (e.key === "Enter" && actorInput) {
       e.preventDefault();
-      if (!actors.includes(actorInput.trim())) {
-        onAddActor(actorInput.trim());
+      if (!actors.includes(actorInput)) {
+        onAddActor(actorInput);
         setActorInput("");
       }
     }

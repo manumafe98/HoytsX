@@ -1,5 +1,7 @@
+import { NotificationType } from "@/types/notification.type";
+
 interface PopUpNotificationProps {
-  type: "error" | "success";
+  type: NotificationType;
   message: string;
   transactionHash?: string;
 }
@@ -14,7 +16,7 @@ export const PopUpNotification = ({
 
   return (
     <div
-      className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 ${width} my-4 px-4 py-2 rounded-lg shadow-lg transition-opacity duration-300 ${bgColor}`}
+      className={`fixed bottom-20 left-1/2 transform -translate-x-1/2 ${width} my-4 px-4 py-2 rounded-lg shadow-lg transition-opacity duration-300 ${bgColor}`}
     >
       <p className="text-center text-white text-lg">{message}</p>
     </div>

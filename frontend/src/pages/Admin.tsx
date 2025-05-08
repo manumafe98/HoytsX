@@ -2,11 +2,12 @@ import {
   ImageUploader,
   Input,
   Layout,
+  PopUpNotification,
   ShowtimesInput,
   Textarea,
 } from "@/components";
 import { ActorsInput } from "@/components/ActorsInput";
-import { listMovie, uploadToPinata } from "@/hooks";
+import { listMovie, uploadToPinata, useNotification } from "@/hooks";
 import { DateShowtime } from "@/types/dateShowtime.type";
 import { Showtime } from "@/types/showtime.type";
 import { ChangeEvent, useState } from "react";
@@ -20,6 +21,12 @@ export const Admin = () => {
   const [duration, setDuration] = useState<string>("");
   const [actors, setActors] = useState<string[]>([]);
   const [dateShowtimes, setDateShowtimes] = useState<DateShowtime[]>([]);
+  const {
+    notificationMessage,
+    notificationType,
+    showPopUpNotification,
+    showNotification,
+  } = useNotification();
 
   const handleImageChange = (file: File | undefined) => {
     setImage(file);
@@ -49,7 +56,7 @@ export const Admin = () => {
   const handleAddActor = (actor: string) => {
     setActors((previous) => {
       if (previous.length >= 3) {
-        console.log("Maximum amount of actors reached");
+        showNotification("Maximum of 3 actors reached", "error");
         return previous;
       } else {
         return [...previous, actor];
@@ -83,6 +90,8 @@ export const Admin = () => {
       const num = parseInt(value) || 0;
       updated[dayIndex].showtimes[showtimeIndex].maxTickets = num;
       updated[dayIndex].showtimes[showtimeIndex].tickets = num;
+    } else if (field === "cost") {
+      updated[dayIndex].showtimes[showtimeIndex].cost = parseFloat(value) || 0;
     } else {
       updated[dayIndex].showtimes[showtimeIndex][field] = parseInt(value) || 0;
     }
@@ -129,21 +138,128 @@ export const Admin = () => {
     ]);
   };
 
+  const formValidation = (
+    image: File,
+    name: string,
+    description: string,
+    genre: string,
+    director: string,
+    actors: string[],
+    duration: string,
+    dateShowtimes: DateShowtime[],
+  ) => {
+    if (!image) {
+      showNotification("Please add an image", "error");
+      return false;
+    }
+
+    if (name.trim() === "") {
+      showNotification("Please enter a valid name", "error");
+      return false;
+    }
+
+    if (description.trim() === "") {
+      showNotification("Please enter a valid description", "error");
+      return false;
+    }
+
+    if (genre.trim() === "") {
+      showNotification("Please enter a valid genre", "error");
+      return false;
+    }
+
+    if (director.trim() === "") {
+      showNotification("Please enter a valid director", "error");
+      return false;
+    }
+
+    if (duration.trim() === "") {
+      showNotification("Please enter a valid duration", "error");
+      return false;
+    }
+
+    if (Number(duration) > 600) {
+      showNotification("Maximum duration is 600", "error");
+      return false;
+    }
+
+    if (actors.length < 1) {
+      showNotification("You should add at least 1 actor", "error");
+      return false;
+    }
+
+    if (dateShowtimes.length < 1) {
+      showNotification("You should add at least 1 day", "error");
+      return false;
+    }
+
+    for (const dateShowtime of dateShowtimes) {
+      if (dateShowtime.date === "") {
+        showNotification("You should select a valid day", "error");
+        return false;
+      }
+
+      if (dateShowtime.showtimes.length < 1) {
+        showNotification("You should add at least 1 showtime", "error");
+        return false;
+      }
+
+      for (const showtime of dateShowtime.showtimes) {
+        if (showtime.time === "") {
+          showNotification("You should select a valid time", "error");
+          return false;
+        }
+
+        if (showtime.cost === 0) {
+          showNotification("You should add a valid cost", "error");
+          return false;
+        }
+
+        if (showtime.maxTickets === 0 || showtime.maxTickets > 100) {
+          showNotification(
+            "Max tickets should be greater than 0 and lesser than 101",
+            "error",
+          );
+          return false;
+        }
+      }
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!image) return;
-    const cid = await uploadToPinata(image);
-    const success = await listMovie(
+    const formSucess = formValidation(
+      image,
       name,
       description,
-      cid,
       genre,
       director,
       actors,
-      Number(duration),
+      duration,
       dateShowtimes,
     );
-    console.log(success);
+    if (formSucess) {
+      const cid = await uploadToPinata(image);
+
+      const success = await listMovie(
+        name,
+        description,
+        cid,
+        genre,
+        director,
+        actors,
+        Number(duration),
+        dateShowtimes,
+      );
+
+      if (success) {
+        showNotification(`${name} was successfully created`, "success");
+      } else {
+        showNotification("Something went wrong!", "error");
+      }
+    }
   };
 
   return (
@@ -152,6 +268,7 @@ export const Admin = () => {
         <form
           className="flex flex-col justify-center items-center w-2/5 max-xl:w-3/5 max-lg:w-4/5 h-11/12 border-2 border-solid border-primary gap-y-5 p-5"
           onSubmit={handleSubmit}
+          noValidate
         >
           <h1 className="text-3xl font-bold text-primary">Add Movie</h1>
           <ImageUploader handleImageChange={handleImageChange} />
@@ -179,6 +296,7 @@ export const Admin = () => {
             type="number"
             placeholder="120"
             min={0}
+            max={600}
             handleOnChange={handleChange}
           />
           <ActorsInput
@@ -201,6 +319,12 @@ export const Admin = () => {
             Submit
           </button>
         </form>
+        {showPopUpNotification && (
+          <PopUpNotification
+            type={notificationType}
+            message={notificationMessage}
+          />
+        )}
       </div>
     </Layout>
   );

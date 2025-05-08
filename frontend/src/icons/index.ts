@@ -6,5 +6,7 @@ export * from "@/icons/Close";
 export * from "@/icons/DownloadCloudIcon";
 export * from "@/icons/Facebook";
 export * from "@/icons/Instagram";
+export * from "@/icons/Menu";
+export * from "@/icons/NavigationArrow";
 export * from "@/icons/Ticket";
 export * from "@/icons/X";

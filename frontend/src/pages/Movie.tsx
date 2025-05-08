@@ -5,7 +5,7 @@ import {
   PopUpNotification,
   PurchaseSeatDialog,
 } from "@/components";
-import { getMovie, getMovieShowtime } from "@/hooks";
+import { getMovie, getMovieShowtime, useNotification } from "@/hooks";
 import { Movie as MovieType } from "@/types/movie.type";
 import { Showtime } from "@/types/showtime.type";
 import { TransactionResult } from "@/types/transactionResult.type";
@@ -19,11 +19,16 @@ export const Movie = () => {
   const [transactionResult, setTransactionResult] = useState<
     TransactionResult | undefined
   >();
-  const [showPopUpNotification, setShowPopUpNotification] =
-    useState<boolean>(false);
   const [showtime, setShowtime] = useState<Showtime>();
   const [date, setDate] = useState<string>();
   const openPurchaseSeatDialogRef = useRef<HTMLDialogElement>(null);
+  const {
+    notificationMessage,
+    notificationType,
+    showPopUpNotification,
+    transactionHash,
+    showNotification,
+  } = useNotification();
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -48,8 +53,15 @@ export const Movie = () => {
 
   const handlePopUp = (data: TransactionResult) => {
     setTransactionResult(data);
-    setShowPopUpNotification(true);
-    setTimeout(() => setShowPopUpNotification(false), 4000);
+    if (data.success) {
+      showNotification(
+        `Seat purchased successfully, tx: ${data.transactionHash}`,
+        "success",
+        data.transactionHash,
+      );
+    } else {
+      showNotification("Something went wrong", "error");
+    }
   };
 
   return (
@@ -72,15 +84,9 @@ export const Movie = () => {
         <MovieDescriptionSection movie={movie} />
         {showPopUpNotification && (
           <PopUpNotification
-            type={transactionResult ? "success" : "error"}
-            message={
-              transactionResult
-                ? `Seat purchased successfully, tx: ${transactionResult.transactionHash}`
-                : "Something went wrong"
-            }
-            transactionHash={
-              transactionResult ? transactionResult.transactionHash : ""
-            }
+            type={notificationType}
+            message={notificationMessage}
+            transactionHash={transactionHash}
           />
         )}
       </div>
