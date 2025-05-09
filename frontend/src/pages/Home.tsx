@@ -3,6 +3,7 @@ import { Carousel } from "@/components/Carousel";
 import { getMovies } from "@/hooks";
 import { Movie } from "@/types/movie.type";
 import { useEffect, useRef, useState } from "react";
+import movie_glasses from "@/assets/images/3dglasses.webp";
 
 export const Home = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -38,7 +39,7 @@ export const Home = () => {
       >
         <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
           <img
-            src="/src/assets/images/3dglasses.webp"
+            src={movie_glasses}
             alt="3D glasses decorative image"
             className="h-[80%] object-contain"
           />

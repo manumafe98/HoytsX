@@ -41,7 +41,7 @@ const metadata = {
 
 createAppKit({
   adapters: [new EthersAdapter()],
-  networks: [hardhatNetwork, sepolia],
+  networks: [sepolia, hardhatNetwork],
   metadata,
   projectId: import.meta.env.PROJECT_ID,
   features: {

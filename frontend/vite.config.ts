@@ -10,9 +10,6 @@ export default defineConfig({
     react()
   ],
   define: {
-    "process.env": {},
-    "process.browser": true,
-    "process.version": JSON.stringify(process.version),
     "import.meta.env.PROJECT_ID": JSON.stringify(process.env.PROJECT_ID),
     "import.meta.env.PINATA_JWT": JSON.stringify(process.env.PINATA_JWT),
     "import.meta.env.PINATA_GATEWAY": JSON.stringify(process.env.PINATA_GATEWAY),
