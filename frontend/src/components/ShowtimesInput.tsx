@@ -34,7 +34,7 @@ export const ShowtimesInput = ({
   ];
 
   return (
-    <div className="w-[75%]">
+    <div className="w-[75%] max-md:w-[85%]">
       <label className="text-xl font-semibold mb-1 text-primary">
         Showtimes
       </label>
@@ -45,7 +45,7 @@ export const ShowtimesInput = ({
             className="mb-6 p-4 border border-gray-200 rounded-lg bg-gray-50"
           >
             <div className="flex justify-between items-center mb-3">
-              <div className="w-1/3">
+              <div className="w-1/3 max-md:w-2/3">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Day
                 </label>
@@ -95,7 +95,7 @@ export const ShowtimesInput = ({
                       type="number"
                       min="0"
                       step="any"
-                      value={showtime.cost}
+                      value={showtime.cost as number}
                       onChange={(e) =>
                         onShowtimeChange(
                           dayIndex,

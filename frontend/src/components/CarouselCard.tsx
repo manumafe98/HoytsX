@@ -20,7 +20,7 @@ export const CarouselCard = ({
   hidden,
   onClick,
 }: CarouselCardProps) => {
-  const zIndex = 1000 - Math.abs(offset) * 100;
+  const zIndex = 50 - Math.abs(offset);
 
   const style: React.CSSProperties = {
     transform: `
@@ -38,10 +38,12 @@ export const CarouselCard = ({
     height: "100%",
     display: hidden ? "none" : "block",
     zIndex: zIndex,
+    maxHeight: "100%",
+    willChange: "transform",
   };
 
   return (
-    <div style={style}>
+    <div style={style} className="prevent-scroll">
       <MovieCard movie={movie} index={index} getMovieInfo={onClick} />
     </div>
   );

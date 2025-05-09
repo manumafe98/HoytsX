@@ -25,7 +25,7 @@ export const ActorsInput = ({
   };
 
   return (
-    <div className="w-[75%]">
+    <div className="w-[75%] max-md:w-[85%]">
       <label className="text-xl font-bold mb-1 text-primary">Actors</label>
       <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
         <div className="flex flex-wrap items-center mb-2">

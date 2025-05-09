@@ -18,7 +18,7 @@ export const NavBar = ({ onNavigate }: NavbarProps) => {
   const location = useLocation();
   const { open } = useAppKit();
   const { address, isConnected, status } = useAppKitAccount();
-  const showMenuIcon = useWindowSize();
+  const showMenuIcon = useWindowSize(1021);
 
   useEffect(() => {
     const checkOwnership = async () => {

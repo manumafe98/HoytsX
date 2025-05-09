@@ -58,7 +58,7 @@ export const ImageUploader = ({ handleImageChange }: ImageUploaderProps) => {
 
   return (
     <div
-      className="flex flex-col justify-center items-center w-[75%] h-[40%] border-4 border-dashed border-primary p-5 relative text-white rounded-xl"
+      className="flex flex-col justify-center items-center w-[75%] max-md:w-[85%] h-[40%] border-4 border-dashed border-primary p-5 relative text-white rounded-xl"
       onDragOver={onDragOver}
       onDragLeave={onDragLeave}
       onDrop={onDrop}
@@ -67,14 +67,14 @@ export const ImageUploader = ({ handleImageChange }: ImageUploaderProps) => {
         <>
           {isDragging ? (
             <>
-              <DownloadCloudIcon className="w-48 h-48" />
+              <DownloadCloudIcon className="size-48" />
             </>
           ) : (
             <>
               <span className="max-sm:text-sm max-sm:text-center">
                 Upload file: JPG, PNG, WEPB Max 10MB
               </span>
-              <DownloadCloudIcon className="fill-current text-primary size-96" />
+              <DownloadCloudIcon className="fill-current text-primary" />
               <span className="max-sm:text-center">Drag & Drop File</span>
               <span>or</span>
               <span

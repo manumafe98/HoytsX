@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
-export function useWindowSize() {
+export function useWindowSize(minWidth: number) {
   const [showMenuIcon, setShowMenuIcon] = useState<boolean>(false);
 
   useEffect(() => {
     const checkWidth = () => {
-      setShowMenuIcon(window.innerWidth <= 1021);
+      setShowMenuIcon(window.innerWidth <= minWidth);
     };
 
     checkWidth();

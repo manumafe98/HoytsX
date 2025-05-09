@@ -1,5 +1,5 @@
 import { DateShowtime } from "@/types/dateShowtime.type";
-import { ContractTransactionResponse } from "ethers";
+import { ContractTransactionResponse, ethers } from "ethers";
 import { getContract } from "./getContract";
 import { getProvider } from "./getProvider";
 
@@ -18,6 +18,13 @@ export const listMovie = async (
     const provider = getProvider();
     const signer = await provider.getSigner();
     const contract = getContract(signer);
+
+    dateShowtimes.forEach((dateShowtime) => {
+      dateShowtime.showtimes.forEach((showtime) => {
+        showtime.cost = ethers.parseEther(`${showtime.cost}`);
+      });
+    });
+
     const transaction: Promise<ContractTransactionResponse> =
       await contract.listMovie(
         name,

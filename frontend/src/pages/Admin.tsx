@@ -264,9 +264,9 @@ export const Admin = () => {
 
   return (
     <Layout showFooter={false}>
-      <div className="h-auto flex justify-center items-center bg-gradient-to-t from-background-gradiant-start to-background-gradiant-end p-5">
+      <div className="h-auto flex justify-center items-center bg-gradient-to-t from-background-gradiant-start to-background-gradiant-end p-5 max-md:p-1">
         <form
-          className="flex flex-col justify-center items-center w-2/5 max-xl:w-3/5 max-lg:w-4/5 h-11/12 border-2 border-solid border-primary gap-y-5 p-5"
+          className="flex flex-col justify-center items-center w-2/5 max-xl:w-3/5 max-lg:w-4/5 max-md:w-full h-11/12 border-2 border-solid border-primary gap-y-5 p-5 max-md:p-2"
           onSubmit={handleSubmit}
           noValidate
         >
@@ -314,7 +314,7 @@ export const Admin = () => {
           />
           <button
             type="submit"
-            className="rounded-md w-[75%] bg-primary h-12 text-white hover:opacity-85 cursor-pointer"
+            className="rounded-md w-[75%] max-md:w-[85%] bg-primary h-12 text-white hover:opacity-85 cursor-pointer"
           >
             Submit
           </button>

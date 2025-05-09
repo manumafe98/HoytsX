@@ -12,7 +12,9 @@ export const PopUpNotification = ({
   transactionHash,
 }: PopUpNotificationProps) => {
   const bgColor = type === "success" ? "bg-primary" : "bg-dark-background";
-  const width = transactionHash ? "w-5/12" : "w-3/12";
+  const width = transactionHash
+    ? "w-5/12 max-lg:w-7/12 max-md:w-full"
+    : "w-3/12 max-lg:w-5/12 max-md:w-8/12";
 
   return (
     <div

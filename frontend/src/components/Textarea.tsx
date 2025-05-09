@@ -10,7 +10,7 @@ interface TextareaProps {
 
 export const Textarea = ({ label, handleOnChange }: TextareaProps) => {
   return (
-    <div className="flex flex-col w-[75%]">
+    <div className="flex flex-col w-[75%] max-md:w-[85%]">
       <label className="text-primary font-bold text-xl mb-1">{label}</label>
       <textarea
         name="description"
