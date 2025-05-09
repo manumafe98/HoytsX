@@ -26,7 +26,7 @@ export const Carousel = ({ movies, onCardClick }: CarouselProps) => {
 
   return (
     <div className="relative h-[35rem] w-full overflow-hidden">
-      <div className="absolute inset-0 h-[30rem] flex items-center justify-center perspective-[1000px]">
+      <div className="absolute inset-0 h-[30rem] flex items-center justify-center perspective-[1000px] pt-5">
         {movies.map((movie, i) => {
           const offset = active - i;
           const direction = Math.sign(offset);
