@@ -18,10 +18,6 @@ export const Footer = () => {
 
   const information = [
     {
-      text: `Copyright © ${new Date().getFullYear()} National Amusements Inc.`,
-      isLink: false,
-    },
-    {
       text: "Privacy policies",
       isLink: true,
     },
@@ -32,8 +28,16 @@ export const Footer = () => {
   ];
 
   return (
-    <div className="flex justify-between items-center bg-dark-background h-20 text-gray-500 mt-auto p-5">
-      <h1 className="text-3xl font-bold">HoytsX</h1>
+    <div className="flex justify-between items-center bg-dark-background min-h-20text-gray-500 mt-auto p-5">
+      <div className="flex flex-col">
+        <h1 className="text-3xl font-bold">HoytsX</h1>
+        <a
+          href="https://manuelmaxera.com/"
+          className="text-sm hover:underline hover:text-primary"
+        >
+          Built by Manuel Maxera
+        </a>
+      </div>
       <ul className="flex gap-2 max-xl:flex-col max-xl:gap-0 max-xl:items-center max-sm:hidden">
         {information.map((info, index) => (
           <li
